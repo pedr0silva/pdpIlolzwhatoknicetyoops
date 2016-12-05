@@ -22,6 +22,13 @@ namespace Projecto
             set { morada = value; }
         }
 
+        private string localidade;
+        public string Localidade
+        {
+            get { return localidade; }
+            set { localidade = value; }
+        }
+
         private int codigo_da_loja;
         public int Codigo_da_Loja
         {
@@ -44,9 +51,15 @@ namespace Projecto
             set { dicionario_clientes = value; }
         }
 
-        public Loja()
+        int aux = 1;
+        public Loja(string morada, string local)
         {
-
+            this.nome = "SuperDume " + local;
+            this.morada = morada;
+            this.codigo_da_loja = aux;
+            this.dicionario_artigos = new Dictionary<int, Artigo>();
+            this.dicionario_clientes = new Dictionary<string, Cliente>();
+            aux++;
         }
     }
 }

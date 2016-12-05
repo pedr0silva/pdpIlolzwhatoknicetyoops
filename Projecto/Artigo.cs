@@ -36,12 +36,28 @@ namespace Projecto
             set { em_stock = value; }
         }
 
+        private int quantidade;
+        public int Quantidade
+        {
+            get { return quantidade; }
+            set { quantidade = value; }
+        }
+
+        //usado para criar um artigo novo em stock
         public Artigo(int cod, string desc, float preco_unitario, int stck)
         {
             this.codigo_de_artigo = cod;
             this.descricao = desc;
             this.preco_unitario = preco_unitario;
             this.em_stock = stck;
+        }
+
+        //usado para criar uma lista de compras
+        public Artigo(int cod, float preco_unitario, int quantidade)
+        {
+            this.codigo_de_artigo = cod;
+            this.preco_unitario = preco_unitario;
+            this.quantidade = quantidade;
         }
     }
 }

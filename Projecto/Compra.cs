@@ -8,14 +8,6 @@ namespace Projecto
 {
     public class Compra
     {
-       /* private int codigo_de_artigo;
-
-        public int codigo_de_artigo Codigo_de_Artigo
-        {
-            get { return codigo_de_artigo; }
-            set { codigo_de_artigo = value; }
-        }*/
-
         private List<Artigo> artigos_comprados;
         public List<Artigo> Artigos_comprados
         {
@@ -30,13 +22,6 @@ namespace Projecto
             set { descricao = value; }
         }
 
-        private int quantidade;
-        public int Quantidade
-        {
-            get { return quantidade; }
-            set { quantidade = value; }
-        }
-
         private float valor;
         public float Valor
         {
@@ -44,13 +29,22 @@ namespace Projecto
             set { valor = value; }
         }
 
-        public Compra(string desc) //TODO: o valor desta compra tem de ser igual ao preco unitario de cada artigo * a quantidade (desse artigo) comprada 
+        public Compra(string desc) //em x de ter quantidade na compra, faz mais sentido ter no artigo (perguntar a prof o q ela pretende).
         {
             this.artigos_comprados = new List<Artigo>();
             this.descricao = desc;
-            this.quantidade = 0;
-            this.valor = 0.0f;
+            this.valor = CalculaValorCompra(this);
         }
+
+        public float CalculaValorCompra(Compra comp)
+        {
+            for (int i = 0; i < comp.artigos_comprados.Count(); i++)
+            {
+                comp.valor += comp.artigos_comprados[i].Preco_unitario * comp.artigos_comprados[i].Quantidade;
+            }
+            return comp.valor;
+        }
+
 
 
 

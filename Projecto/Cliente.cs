@@ -16,11 +16,11 @@ namespace Projecto
             set { Nome = value; }
         }
 
-        private string CC;
-        public string _CC
+        private string cc;
+        public string CC
         {
-            get { return CC; }
-            set { CC = value; }
+            get { return cc; }
+            set { cc = value; }
         }
 
         private int nif;
@@ -51,6 +51,16 @@ namespace Projecto
             set { email = value; }
         }
 
+        private Cartao_de_Cliente cartao;
+
+        public Cartao_de_Cliente Cartao
+        {
+            get { return cartao; }
+            set { cartao = value; }
+        }
+
+
+
         public Cliente(string nome, string cc, int NIF, string morada, int tlm, string email)
         {
             this.nome = nome;
@@ -59,6 +69,7 @@ namespace Projecto
             this.morada = morada;
             this.telemovel = tlm;
             this.email = email;
+            this.cartao = new Cartao_de_Cliente();
         }
 
 

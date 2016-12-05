@@ -8,6 +8,14 @@ namespace Projecto
 {
     public class Compra
     {
+       /* private int codigo_de_artigo;
+
+        public int codigo_de_artigo Codigo_de_Artigo
+        {
+            get { return codigo_de_artigo; }
+            set { codigo_de_artigo = value; }
+        }*/
+
         private List<Artigo> artigos_comprados;
         public List<Artigo> Artigos_comprados
         {
@@ -40,8 +48,8 @@ namespace Projecto
         {
             this.artigos_comprados = new List<Artigo>();
             this.descricao = desc;
-            //this.quantidade = 0;
-            //this.valor = 0;
+            this.quantidade = 0;
+            this.valor = 0.0f;
         }
 
 

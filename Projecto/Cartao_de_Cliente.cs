@@ -8,13 +8,6 @@ namespace Projecto
 {
     public class Cartao_de_Cliente
     {
-        private Cliente c;
-        public Cliente C
-        {
-            get { return c; }
-            set { c = value; }
-        }
-
         private List<Compra> lista_de_compras;
         public List<Compra> Lista_de_compras
         {
@@ -29,9 +22,8 @@ namespace Projecto
             set { pontos = value; }
         }
 
-        public Cartao_de_Cliente(Cliente cliente)
+        public Cartao_de_Cliente()
         {
-            this.c = cliente;
             this.lista_de_compras = new List<Compra>();
             this.pontos = 0;
         }

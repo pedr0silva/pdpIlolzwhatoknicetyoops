@@ -73,5 +73,20 @@ namespace Projecto
                 dicionario_artigos.Add(a.Codigo_de_artigo, a);
             }
         }
+        public void EliminaArtigo()
+        {
+            int i, opcao;
+            for(i = 0; i < dicionario_artigos.Count(); i++)
+            {
+                Console.WriteLine( (i+1)+ ": " + dicionario_artigos[i].Codigo_de_artigo + "\t" + dicionario_artigos[i].Descricao + "\t" + dicionario_artigos[i].Preco_unitario + "\t" + dicionario_artigos[i].Em_stock);
+            }
+            Console.Write("Escolha uma opcao para eliminar (0 para cancelar): ");
+            opcao = int.Parse(Console.ReadLine());
+            if(opcao == 0)
+            {
+                return;
+            }
+            dicionario_artigos.Remove(opcao - 1);
+        }
     }
 }

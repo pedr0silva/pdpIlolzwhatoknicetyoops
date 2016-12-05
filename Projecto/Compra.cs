@@ -25,7 +25,7 @@ namespace Projecto
         private float valor;
         public float Valor
         {
-            get { return valor; }
+            get { return CalculaValorCompra(this); }
             set { valor = value; }
         }
 
@@ -33,7 +33,6 @@ namespace Projecto
         {
             this.artigos_comprados = new List<Artigo>();
             this.descricao = desc;
-            this.valor = CalculaValorCompra(this);
         }
 
         public float CalculaValorCompra(Compra comp)
@@ -44,10 +43,5 @@ namespace Projecto
             }
             return comp.valor;
         }
-
-
-
-
-
     }
 }

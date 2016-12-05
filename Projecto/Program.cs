@@ -65,7 +65,8 @@ namespace Projecto
             Cliente cli = new Cliente("luis", "434234Z41", 193338421, "rua branca", 912312332, "banana@pessego.com");
             comp.Artigos_comprados.Add(a);
             cli.Cartao.Lista_de_compras.Add(comp);
-            Console.WriteLine(comp.Valor);
+            Console.WriteLine(cli.Cartao.Lista_de_compras[0].Valor);
+            //daqui pra baixo n esta a dar?!?!?!?!?
             loj.AdicionaPontos(cli);
             Console.WriteLine(loj.Nome);
             Console.WriteLine(cli.Cartao.Pontos);

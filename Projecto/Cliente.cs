@@ -52,7 +52,6 @@ namespace Projecto
         }
 
         private Cartao_de_Cliente cartao;
-
         public Cartao_de_Cliente Cartao
         {
             get { return cartao; }

@@ -61,5 +61,17 @@ namespace Projecto
             this.dicionario_clientes = new Dictionary<string, Cliente>();
             aux++;
         }
+
+        public void AdicionaArtigo(Artigo a)
+        {
+            if(dicionario_artigos.ContainsKey(a.Codigo_de_artigo))
+            {
+                throw new Exception("Artigo ja existente");
+            }
+            else
+            {
+                dicionario_artigos.Add(a.Codigo_de_artigo, a);
+            }
+        }
     }
 }

@@ -40,8 +40,8 @@ namespace Projecto
         {
             this.artigos_comprados = new List<Artigo>();
             this.descricao = desc;
-            //this.quantidade = ;
-            //this.valor = ;
+            //this.quantidade = 0;
+            //this.valor = 0;
         }
 
 

@@ -120,5 +120,36 @@ namespace Projecto
                 c.Cartao.Pontos += 3;
             }
         }
+
+        public void ConsultarCompras(Cliente c)
+        {
+            string imprimeartigos = "";
+            for (int i = 0; i < c.Cartao.Lista_de_compras.Count(); i++)
+            {
+                for(int j = 0; j < c.Cartao.Lista_de_compras[i].Artigos_comprados.Count(); i++)
+                {
+                    Artigo art = c.Cartao.Lista_de_compras[i].Artigos_comprados[j];
+                    imprimeartigos += i + 1 + " "
+                                   + "CODIGO: " + art.Codigo_de_artigo + " "
+                                   + "DESCRICAO: " + art.Descricao + " " 
+                                   + "PRECO UNITARIO: " + art.Preco_unitario + " "
+                                   + "QUANTIDADE: " + art.Quantidade + "\n";
+                        
+                }
+                Console.WriteLine(imprimeartigos + " " + "VALOR DA COMPRA: " + c.Cartao.Lista_de_compras[i].Valor);
+            }
+        }
+
+        public void ConsultarSaldo(Cliente c)
+        {
+            float somatorio = 0.0f;
+            for (int i = 0; i < c.Cartao.Lista_de_compras.Count(); i++)
+            {
+                Compra comp = c.Cartao.Lista_de_compras[i];
+                somatorio += comp.Valor;
+            }
+        Console.WriteLine("VALOR TOTAL GASTO: " + somatorio + " "
+            + "PONTOS ACUMULADOS: " + c.Cartao.Pontos);
+        }
     }
 }

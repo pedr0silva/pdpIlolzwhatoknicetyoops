@@ -94,3 +94,11 @@ namespace Projecto
 ////                                                                    ////
 ////____OBRIGATORIO?? A NOSSA RESOLUCAO FAZ MAIS SENTIDO!? (OU NAO?)____////
 ////--------------------------------------------------------------------////
+////                                                                    ////
+////Atribuir um cartao(sem movimentos e com zero pontos) a um cliente,  ////
+////guardando os dados de identifica¸cao pessoais do cliente            ////
+////(nome, numero do cartao de cidadao, NIF, morada, telefone, email)   ////
+////                                                                    ////
+////____TEM DE SER A CLASS CARTAO A GUARDAR OS DADOS DO CLIENTE?!?!?____////
+////--------------------------------------------------------------------////
+

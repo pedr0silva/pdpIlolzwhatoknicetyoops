@@ -33,6 +33,7 @@ namespace Projecto
         {
             this.artigos_comprados = new List<Artigo>();
             this.descricao = desc;
+            this.valor = 0.0f;
         }
 
         public float CalculaValorCompra(Compra comp)

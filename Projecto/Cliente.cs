@@ -8,7 +8,6 @@ namespace Projecto
 {
     public class Cliente
     {
-
         private string nome;
         public string Nome
         {
@@ -70,12 +69,5 @@ namespace Projecto
             this.email = email;
             this.cartao = new Cartao_de_Cliente();
         }
-
-
-
-
-
-
-
     }
 }

@@ -36,7 +36,6 @@ namespace Projecto
             set { codigo_da_loja = value; }
         }
 
-
         private Dictionary<int,Artigo> dicionario_artigos; //int e Key, sendo codigo de artigo
         public Dictionary<int,Artigo> Dicionario_Artigos
         {
@@ -56,7 +55,7 @@ namespace Projecto
         {
             this.nome = "SuperDume " + local;
             this.morada = morada;
-            this.codigo_da_loja = aux;
+            this.codigo_da_loja = aux;          //NOT SURE IF THIS WORKS THOUGH.
             this.dicionario_artigos = new Dictionary<int, Artigo>();
             this.dicionario_clientes = new Dictionary<string, Cliente>();
             aux++;
@@ -152,4 +151,4 @@ namespace Projecto
             + "PONTOS ACUMULADOS: " + c.Cartao.Pontos);
         }
     }
-}
+}

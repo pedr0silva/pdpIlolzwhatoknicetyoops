@@ -27,8 +27,5 @@ namespace Projecto
             this.lista_de_compras = new List<Compra>();
             this.pontos = 0;
         }
-
-
-
     }
 }

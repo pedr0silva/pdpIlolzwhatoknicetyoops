@@ -36,6 +36,8 @@ namespace Projecto
             set { codigo_da_loja = value; }
         }
 
+        private int numero_de_lojas = 1;                                        //ISTO NAO FUNCIONA (mais vale usar um incremento no menu)
+
         private Dictionary<int,Artigo> dicionario_artigos; //int e Key, sendo codigo de artigo
         public Dictionary<int,Artigo> Dicionario_Artigos
         {
@@ -50,15 +52,15 @@ namespace Projecto
             set { dicionario_clientes = value; }
         }
 
-        int aux = 1;
+        
         public Loja(string morada, string local)
         {
             this.nome = "SuperDume " + local;
             this.morada = morada;
-            this.codigo_da_loja = aux;          //NOT SURE IF THIS WORKS THOUGH.
+            this.codigo_da_loja = numero_de_lojas;                              //ISTO NAO FUNCIONA
             this.dicionario_artigos = new Dictionary<int, Artigo>();
             this.dicionario_clientes = new Dictionary<string, Cliente>();
-            aux++;
+            numero_de_lojas++;                                                  //ISTO NAO FUNCIONA
         }
 
         public void AdicionaArtigo(Artigo a)
@@ -99,12 +101,12 @@ namespace Projecto
             {
                 if (dicionario_artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
                 {
-                    dicionario_artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;
+                    dicionario_artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
                 }
             }  
         }
 
-        public void CalculaValorCompra(Compra comp)
+        public void CalculaValorCompra(Compra comp)     //Nao devia estar na classe compra?
         {
             for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
             {
@@ -112,9 +114,9 @@ namespace Projecto
             }
         }
 
-        public void AdicionaPontos(Cliente c)
+        public void AdicionaPontos(Cliente c)       //Nao devia estar na classe cliente?
         {
-            for (float aux = c.Cartao.Lista_de_compras[c.Cartao.Lista_de_compras.Count() - 1].Valor; aux - 50 > 0; aux -= 50)
+            for (float aux = c.Cartao.Lista_de_compras[c.Cartao.Lista_de_compras.Count() - 1].Valor; aux - 50 > 0; aux -= 50)   //pq count() - 1? Isto so trabalha 1 compra de cada vez certo?
             {
                 c.Cartao.Pontos += 3;
             }
@@ -122,20 +124,21 @@ namespace Projecto
 
         public void ConsultarCompras(Cliente c)
         {
-            string imprimeartigos = "";
+            string imprimeArtigos = "";
             for (int i = 0; i < c.Cartao.Lista_de_compras.Count(); i++)
             {
-                for(int j = 0; j < c.Cartao.Lista_de_compras[i].Artigos_comprados.Count(); i++)
+                for(int j = 0; j < c.Cartao.Lista_de_compras[i].Artigos_comprados.Count(); j++)
                 {
                     Artigo art = c.Cartao.Lista_de_compras[i].Artigos_comprados[j];
-                    imprimeartigos += i + 1 + " "
-                                   + "CODIGO: " + art.Codigo_de_artigo + " "
-                                   + "DESCRICAO: " + art.Descricao + " " 
-                                   + "PRECO UNITARIO: " + art.Preco_unitario + " "
-                                   + "QUANTIDADE: " + art.Quantidade + "\n";
+                    imprimeArtigos += (i + 1)
+                                   + " CODIGO: " + art.Codigo_de_artigo
+                                   + " DESCRICAO: " + art.Descricao 
+                                   + " PRECO UNITARIO: " + art.Preco_unitario
+                                   + " QUANTIDADE: " + art.Quantidade + "\n";
                         
                 }
-                Console.WriteLine(imprimeartigos + " " + "VALOR DA COMPRA: " + c.Cartao.Lista_de_compras[i].Valor);
+                Console.WriteLine(imprimeArtigos + " VALOR DA COMPRA: " + c.Cartao.Lista_de_compras[i].Valor);
+                imprimeArtigos = "";
             }
         }
 
@@ -147,8 +150,7 @@ namespace Projecto
                 Compra comp = c.Cartao.Lista_de_compras[i];
                 somatorio += comp.Valor;
             }
-        Console.WriteLine("VALOR TOTAL GASTO: " + somatorio + " "
-            + "PONTOS ACUMULADOS: " + c.Cartao.Pontos);
+        Console.WriteLine("VALOR TOTAL GASTO: " + somatorio + " PONTOS ACUMULADOS: " + c.Cartao.Pontos);
         }
     }
 }

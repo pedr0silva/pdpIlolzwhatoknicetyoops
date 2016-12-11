@@ -60,6 +60,7 @@ namespace Projecto
 
             
             Loja loj = new Loja("rua calhau", "Barcelos");
+            Loja loj2 = new Loja("lol", "No Where");
             Artigo a2 = new Artigo(324764, "cenas", 70.0f, 15);
             Artigo a = new Artigo(324764, 70.0f, 3);
             Compra comp = new Compra("3 coentros");

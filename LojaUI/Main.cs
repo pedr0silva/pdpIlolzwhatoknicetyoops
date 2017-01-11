@@ -15,6 +15,7 @@ namespace LojaUI
         public Main()
         {
             InitializeComponent();
+
         }
     }
 }

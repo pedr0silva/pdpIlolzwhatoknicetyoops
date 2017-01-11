@@ -8,56 +8,27 @@ namespace Projecto
 {
     public class Artigo
     {
-        private int codigo_de_artigo;
-        public int Codigo_de_artigo
-        {
-            get { return codigo_de_artigo; }
-            set { codigo_de_artigo = value; }
-        }
-
-        private string descricao;
-        public string Descricao
-        {
-            get { return descricao; }
-            set { descricao = value; }
-        }
-
-        private float preco_unitario;
-        public float Preco_unitario
-        {
-            get { return preco_unitario; }
-            set { preco_unitario = value; }
-        }
-
-        private int em_stock;
-        public int Em_stock
-        {
-            get { return em_stock; }
-            set { em_stock = value; }
-        }
-
-        private int quantidade;
-        public int Quantidade
-        {
-            get { return quantidade; }
-            set { quantidade = value; }
-        }
+        public int Codigo_de_artigo { get; set; }
+        public string Descricao { get; set; }
+        public float Preco_unitario { get; set; }
+        public int Em_stock { get; set; }
+        public int Quantidade { get; set; }
 
         //usado para criar um artigo novo em stock
         public Artigo(int cod, string desc, float preco_unitario, int stck)
         {
-            this.codigo_de_artigo = cod;
-            this.descricao = desc;
-            this.preco_unitario = preco_unitario;
-            this.em_stock = stck;
+            this.Codigo_de_artigo = cod;
+            this.Descricao = desc;
+            this.Preco_unitario = preco_unitario;
+            this.Em_stock = stck;
         }
 
         //usado para criar uma lista de compras
         public Artigo(int cod, float preco_unitario, int quantidade)
         {
-            this.codigo_de_artigo = cod;
-            this.preco_unitario = preco_unitario;
-            this.quantidade = quantidade;
+            this.Codigo_de_artigo = cod;
+            this.Preco_unitario = preco_unitario;
+            this.Quantidade = quantidade;
         }
     }
 }

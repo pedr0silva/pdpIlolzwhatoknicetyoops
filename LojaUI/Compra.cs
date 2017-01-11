@@ -8,41 +8,24 @@ namespace Projecto
 {
     public class Compra
     {
-        private List<Artigo> artigos_comprados;
-        public List<Artigo> Artigos_comprados
-        {
-            get { return artigos_comprados; }
-            set { artigos_comprados = value; }
-        }
-
-        private string descricao;
-        public string Descricao
-        {
-            get { return descricao; }
-            set { descricao = value; }
-        }
-
-        private float valor;
-        public float Valor
-        {
-            get { return CalculaValorCompra(this); }
-            set { valor = value; }
-        }
+        public List<Artigo> Artigos_comprados { get; set; }
+        public string Descricao { get; set; }
+        public float Valor { get; set; }
 
         public Compra(string desc) //em x de ter quantidade na compra, faz mais sentido ter no artigo (perguntar a prof o q ela pretende).
         {
-            this.artigos_comprados = new List<Artigo>();
-            this.descricao = desc;
-            this.valor = 0.0f;
+            this.Artigos_comprados = new List<Artigo>();
+            this.Descricao = desc;
+            this.Valor = 0.0f;
         }
 
         public float CalculaValorCompra(Compra comp)
         {
-            for (int i = 0; i < comp.artigos_comprados.Count(); i++)
+            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
             {
-                comp.valor += comp.artigos_comprados[i].Preco_unitario * comp.artigos_comprados[i].Quantidade;
+                comp.Valor += comp.Artigos_comprados[i].Preco_unitario * comp.Artigos_comprados[i].Quantidade;
             }
-            return comp.valor;
+            return comp.Valor;
         }
     }
 }

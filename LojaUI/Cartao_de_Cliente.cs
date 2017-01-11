@@ -8,24 +8,13 @@ namespace Projecto
 {
     public class Cartao_de_Cliente
     {
-        private List<Compra> lista_de_compras;
-        public List<Compra> Lista_de_compras
-        {
-            get { return lista_de_compras; }
-            set { lista_de_compras = value; }
-        }
-
-        private int pontos;
-        public int Pontos
-        {
-            get { return pontos; }
-            set { pontos = value; }
-        }
+        public List<Compra> Lista_de_compras { get; set; }
+        public int Pontos { get; set; }
 
         public Cartao_de_Cliente()
         {
-            this.lista_de_compras = new List<Compra>();
-            this.pontos = 0;
+            this.Lista_de_compras = new List<Compra>();
+            this.Pontos = 0;
         }
     }
 }

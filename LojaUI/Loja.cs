@@ -8,83 +8,47 @@ namespace Projecto
 {
     public class Loja
     {
-        private string nome;
-        public string Nome
-        {
-            get { return nome; }
-            set { nome = value; }
-        }
+        public string Nome { get; set; }
+        public string Morada { get; set; }
+        public string Localidade { get; set; }
+        public int Codigo_da_Loja { get; set; }
+        public Dictionary<int,Artigo> Dicionario_Artigos { get; set; }
+        public Dictionary<string,Cliente> Dicionario_Clientes { get; set; }
 
-        private string morada;
-        public string Morada
-        {
-            get { return morada; }
-            set { morada = value; }
-        }
+        private static int numero_de_lojas = 1;
 
-        private string localidade;
-        public string Localidade
-        {
-            get { return localidade; }
-            set { localidade = value; }
-        }
-
-        private int codigo_da_loja;
-        public int Codigo_da_Loja
-        {
-            get { return codigo_da_loja; }
-            set { codigo_da_loja = value; }
-        }
-
-        private int numero_de_lojas = 1;                                        //ISTO NAO FUNCIONA (mais vale usar um incremento no menu)
-
-        private Dictionary<int,Artigo> dicionario_artigos; //int e Key, sendo codigo de artigo
-        public Dictionary<int,Artigo> Dicionario_Artigos
-        {
-            get { return dicionario_artigos; }
-            set { dicionario_artigos = value; }
-        }
-
-        private Dictionary<string,Cliente> dicionario_clientes; //string e uma key, neste caso o cc
-        public Dictionary<string,Cliente> Dicionario_Clientes 
-        {
-            get { return dicionario_clientes; }
-            set { dicionario_clientes = value; }
-        }
-
-        
         public Loja(string morada, string local)
         {
-            this.nome = "SuperDume " + local;
-            this.morada = morada;
-            this.codigo_da_loja = numero_de_lojas;                              //ISTO NAO FUNCIONA
-            this.dicionario_artigos = new Dictionary<int, Artigo>();
-            this.dicionario_clientes = new Dictionary<string, Cliente>();
-            numero_de_lojas++;                                                  //ISTO NAO FUNCIONA
+            this.Nome = "SuperDume " + local;
+            this.Morada = morada;
+            this.Codigo_da_Loja = numero_de_lojas;
+            this.Dicionario_Artigos = new Dictionary<int, Artigo>();
+            this.Dicionario_Clientes = new Dictionary<string, Cliente>();
+            numero_de_lojas++;
         }
 
         public void AdicionaArtigo(Artigo a)
         {
-            if(dicionario_artigos.ContainsKey(a.Codigo_de_artigo))
+            if(Dicionario_Artigos.ContainsKey(a.Codigo_de_artigo))
             {
                 throw new Exception("Artigo ja existente");
             }
             else
             {
-                dicionario_artigos.Add(a.Codigo_de_artigo, a);
+                Dicionario_Artigos.Add(a.Codigo_de_artigo, a);
             }
         }
 
         public void EliminaArtigo()
         {
             int i, opcao;
-            for (i = 0; i < dicionario_artigos.Count(); i++)
+            for (i = 0; i < Dicionario_Artigos.Count(); i++)
             {
                 Console.WriteLine((i + 1) + ": "
-                    + dicionario_artigos[i].Codigo_de_artigo + "\t"
-                    + dicionario_artigos[i].Descricao + "\t"
-                    + dicionario_artigos[i].Preco_unitario + "\t"
-                    + dicionario_artigos[i].Em_stock + "\n");
+                    + Dicionario_Artigos[i].Codigo_de_artigo + "\t"
+                    + Dicionario_Artigos[i].Descricao + "\t"
+                    + Dicionario_Artigos[i].Preco_unitario + "\t"
+                    + Dicionario_Artigos[i].Em_stock + "\n");
             }
             Console.Write("Escolha uma opcao para eliminar (0 para cancelar): ");
             opcao = int.Parse(Console.ReadLine());
@@ -92,16 +56,16 @@ namespace Projecto
             {
                 return;
             }
-            dicionario_artigos.Remove(opcao - 1);
+            Dicionario_Artigos.Remove(opcao - 1);
         }
 
         public void ActualizaStock(Compra comp)
         {
             for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
             {
-                if (dicionario_artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
+                if (Dicionario_Artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
                 {
-                    dicionario_artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
+                    Dicionario_Artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
                 }
             }  
         }

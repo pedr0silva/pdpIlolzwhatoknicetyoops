@@ -8,66 +8,25 @@ namespace Projecto
 {
     public class Cliente
     {
-        private string nome;
-        public string Nome
-        {
-            get { return nome; }
-            set { Nome = value; }
-        }
-
-        private string cc;
-        public string CC
-        {
-            get { return cc; }
-            set { cc = value; }
-        }
-
-        private int nif;
-        public int Nif
-        {
-            get { return nif; }
-            set { nif = value; }
-        }
-
-        private string morada;
-        public string Morada
-        {
-            get { return morada; }
-            set { morada = value; }
-        }
-
-        private int telemovel;
-        public int Telemovel
-        {
-            get { return telemovel; }
-            set { telemovel = value; }
-        }
-
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
-
-        private Cartao_de_Cliente cartao;
-        public Cartao_de_Cliente Cartao
-        {
-            get { return cartao; }
-            set { cartao = value; }
-        }
+        public string Nome { get; set; }
+        public string CC { get; set; }
+        public int Nif { get; set; }
+        public string Morada { get; set; }
+        public int Telemovel { get; set; }
+        public string Email { get; set; }
+        public Cartao_de_Cliente Cartao { get; set; }
 
 
 
         public Cliente(string nome, string cc, int NIF, string morada, int tlm, string email)
         {
-            this.nome = nome;
+            this.Nome = nome;
             this.CC = cc;
-            this.nif = NIF;
-            this.morada = morada;
-            this.telemovel = tlm;
-            this.email = email;
-            this.cartao = new Cartao_de_Cliente();
+            this.Nif = NIF;
+            this.Morada = morada;
+            this.Telemovel = tlm;
+            this.Email = email;
+            this.Cartao = new Cartao_de_Cliente();
         }
     }
 }

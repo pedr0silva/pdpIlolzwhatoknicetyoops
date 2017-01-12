@@ -24,14 +24,13 @@ namespace LojaUI
             gridCartao.Columns.Add("Preco", "Preco");
             gridCartao.Columns.Add("Quantidade", "Quantidade");
 
-            //adiciona cada artigo existente na biblioteca à gridview
             foreach (Compra comp in c.Cartao.Lista_de_compras)
             {
                 int index = gridCartao.Rows.Add();
                 gridCartao.Rows[index].Cells[0].Value = comp.Artigos_comprados;
                 gridCartao.Rows[index].Cells[1].Value = comp.Valor;
                 gridCartao.Rows[index].Cells[2].Value = comp.Descricao;
-                ;
+                
             }
         }
     }

@@ -14,39 +14,34 @@ namespace LojaUI
 {
     public partial class Login : Form
     {
-        public Credencial login;
-        private Stream sw;          
+        public Loja superDume;        
 
-        public Login(Credencial login, Stream s)
+        public Login(Loja superDume)
         {
             InitializeComponent();
-            this.login = login;
-            this.sw = s;
+            this.superDume = superDume;
 
-            if(login.rememberMe)
+            if(superDume.Credencias.rememberMe)
             {
-                txtUser.Text = login.user;
-                txtPass.Text = login.password;
+                txtUser.Text = superDume.Credencias.user;
+                txtPass.Text = superDume.Credencias.password;
                 checkRemMe.Checked = true;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            login.CorrectPassword = false;
-            login.user = txtUser.Text;
-            login.password = txtPass.Text;
-            login.rememberMe = checkRemMe.Checked;    
-            foreach(string s in login.userPass.Keys)
+            superDume.Credencias.CorrectPassword = false;
+            superDume.Credencias.user = txtUser.Text;
+            superDume.Credencias.password = txtPass.Text;
+            superDume.Credencias.rememberMe = checkRemMe.Checked;    
+            foreach(string s in superDume.Credencias.userPass.Keys)
             {
-                if(login.user.Equals(s) && login.password.Equals(login.userPass[s]))
+                if(superDume.Credencias.user.Equals(s) && superDume.Credencias.password.Equals(superDume.Credencias.userPass[s]))
                 {
-                    login.CorrectPassword = true;
+                    superDume.Credencias.CorrectPassword = true;
 
                    // Properties.Settings.Default.user
-                    BinaryFormatter bf = new BinaryFormatter();
-                    bf.Serialize(sw, this.login);
-                    sw.Close();
                     this.Close();
                     break;
                 }

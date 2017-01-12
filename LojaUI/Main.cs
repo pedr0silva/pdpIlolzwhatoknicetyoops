@@ -12,10 +12,12 @@ namespace LojaUI
 {
     public partial class Main : Form
     {
-        public Main()
+        public Loja SuperDume;
+
+        public Main(Loja loj)
         {
             InitializeComponent();
-
+            this.SuperDume = loj;
         }
     }
 }

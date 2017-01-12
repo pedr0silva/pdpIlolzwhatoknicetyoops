@@ -134,6 +134,7 @@
             this.btnAcres.TabIndex = 6;
             this.btnAcres.Text = "Acrescentar Artigo";
             this.btnAcres.UseVisualStyleBackColor = true;
+            this.btnAcres.Click += new System.EventHandler(this.btnAcres_Click);
             // 
             // btnEliminar
             // 

@@ -28,12 +28,8 @@ namespace LojaUI
             this.Dicionario_Artigos = new Dictionary<int, Artigo>();
             this.Dicionario_Clientes = new Dictionary<string, Cliente>();
             numero_de_lojas++;
+            this.Credencias = new Credencial();
         }
-        public Loja()
-        {
-
-        }
-
         public void ActualizaStock(Compra comp)
         {
             for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
@@ -178,8 +174,6 @@ namespace LojaUI
             this.Cartao = new Cartao_de_Cliente();
         }
     }
-
-    [Serializable]
     public class Credencial
     {
         public bool CorrectPassword;
@@ -200,7 +194,6 @@ namespace LojaUI
             userPass.Add("Daniela", "paradigmas");
         }
     }
-
     public class Compra
     {
         public List<Artigo> Artigos_comprados { get; set; }

@@ -19,13 +19,18 @@ namespace LojaUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Loja superDume = new Loja();
+            Loja superDume = new Loja("Rua Direita", "Barcelos");
 
-            Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.OpenOrCreate);
-            BinaryFormatter bf = new BinaryFormatter();
-            superDume = (Loja)bf.Deserialize(s);
-            //Credencial logins = new Credencial();
-            //logins = (Credencial)bf.Deserialize(s);
+            if(File.Exists("NuncaMeHackeareas.bin"))
+            {
+                Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.Open);
+                BinaryFormatter bf = new BinaryFormatter();
+                superDume = (Loja)bf.Deserialize(s);
+            }
+            else
+            {
+                superDume.Credencias.FazUmaX();
+            }
 
             Application.Run(new Login(superDume));
 

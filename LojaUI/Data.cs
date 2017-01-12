@@ -14,8 +14,9 @@ namespace LojaUI
         public string Morada { get; set; }
         public string Localidade { get; set; }
         public int Codigo_da_Loja { get; set; }
-        public Dictionary<int, Artigo> Dicionario_Artigos { get; set; }
-        public Dictionary<string, Cliente> Dicionario_Clientes { get; set; }
+        public Dictionary<int, Artigo> Dicionario_Artigos { get; set; }         //KEY = CODIGO
+        public Dictionary<string, Cliente> Dicionario_Clientes { get; set; }    //KEY = CC DO CLIENTE
+        public Dictionary<string, Compra> Dicionario_Compras { get; set; }      //KEY = 
         public Credencial Credencias { get; set; }
 
         private static int numero_de_lojas = 1;
@@ -27,9 +28,11 @@ namespace LojaUI
             this.Codigo_da_Loja = numero_de_lojas;
             this.Dicionario_Artigos = new Dictionary<int, Artigo>();
             this.Dicionario_Clientes = new Dictionary<string, Cliente>();
+            this.Dicionario_Compras = new Dictionary<string, Compra>();
             numero_de_lojas++;
             this.Credencias = new Credencial();
         }
+
         public void ActualizaStock(Compra comp)
         {
             for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
@@ -113,6 +116,30 @@ namespace LojaUI
             }
             Dicionario_Artigos.Remove(opcao - 1);
         }
+
+        //Funcoes para forms 
+        public void CriarCompraForm(Compra comp)
+        {
+            if(!Dicionario_Compras.ContainsKey(comp.Codigo_Compra))
+            {
+                Dicionario_Compras.Add(comp.Codigo_Compra, comp);
+            }
+            else
+            {
+                throw new Exception("Compra ja existe");
+            }
+        }
+        public void EliminaCompraForm(string s)
+        {
+            if (Dicionario_Compras.ContainsKey(s))
+            {
+                Dicionario_Compras.Remove(s);
+            }
+            else
+            {
+                throw new Exception("Compra nao existe.");
+            }
+        }
         public void EliminaArtigoForm(string s)
         {
             if (Dicionario_Artigos.ContainsKey(int.Parse(s)))
@@ -121,7 +148,7 @@ namespace LojaUI
             }
             else
             {
-                MessageBox.Show("Artigo nao existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Artigo nao existe.");
             }
         }
         public void EliminaClienteForm(string s)
@@ -132,7 +159,7 @@ namespace LojaUI
             }
             else
             {
-                MessageBox.Show("Clente nao existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Cliente nao existe.");
             }
         }
 
@@ -161,6 +188,11 @@ namespace LojaUI
             this.Codigo_de_artigo = cod;
             this.Preco_unitario = preco_unitario;
             this.Quantidade = quantidade;
+        }
+
+        public override string ToString()
+        {
+            return Descricao + ", " + Preco_unitario + "."; 
         }
     }
     [Serializable]
@@ -223,15 +255,23 @@ namespace LojaUI
     [Serializable]
     public class Compra
     {
+        public string Codigo_Compra { get; set; }
+        public Cliente OCliente { get; set; }
         public List<Artigo> Artigos_comprados { get; set; }
         public string Descricao { get; set; }
         public float Valor { get; set; }
 
-        public Compra(string desc) //em x de ter quantidade na compra, faz mais sentido ter no artigo (perguntar a prof o q ela pretende).
+        public Compra(string codigo, Cliente c, string desc) //em x de ter quantidade na compra, faz mais sentido ter no artigo (perguntar a prof o q ela pretende).
         {
             this.Artigos_comprados = new List<Artigo>();
             this.Descricao = desc;
             this.Valor = 0.0f;
+            this.Codigo_Compra = codigo;
+            this.OCliente = c;
+        }
+        public Compra()
+        {
+            Artigos_comprados = new List<Artigo>();
         }
 
         public float CalculaValorCompra(Compra comp)

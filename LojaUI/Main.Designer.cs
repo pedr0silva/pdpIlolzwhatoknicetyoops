@@ -61,25 +61,38 @@
             this.txtNIF = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnNovaCompra = new System.Windows.Forms.Button();
+            this.comboArtigos = new System.Windows.Forms.ComboBox();
+            this.comboClienteCompra = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.btnEliminarArtigoCompra = new System.Windows.Forms.Button();
+            this.btnAcresArtigoCompra = new System.Windows.Forms.Button();
+            this.gridComprasArtigos = new System.Windows.Forms.DataGridView();
+            this.Descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridCompras = new System.Windows.Forms.DataGridView();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEliminarCompra = new System.Windows.Forms.Button();
+            this.btnAcrescCompra = new System.Windows.Forms.Button();
+            this.btnAceitarCompra = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtDecricaoCompra = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtCompraValor = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txtCodigoCompra = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtQuantidadeCompra = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridArtigos)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridClientes)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridComprasArtigos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCompras)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -400,18 +413,25 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.dataGridView2);
-            this.tabPage3.Controls.Add(this.button4);
-            this.tabPage3.Controls.Add(this.button5);
-            this.tabPage3.Controls.Add(this.button6);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.textBox5);
-            this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.textBox6);
+            this.tabPage3.Controls.Add(this.txtQuantidadeCompra);
+            this.tabPage3.Controls.Add(this.btnNovaCompra);
+            this.tabPage3.Controls.Add(this.comboArtigos);
+            this.tabPage3.Controls.Add(this.comboClienteCompra);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.btnEliminarArtigoCompra);
+            this.tabPage3.Controls.Add(this.btnAcresArtigoCompra);
+            this.tabPage3.Controls.Add(this.gridComprasArtigos);
+            this.tabPage3.Controls.Add(this.gridCompras);
+            this.tabPage3.Controls.Add(this.btnEliminarCompra);
+            this.tabPage3.Controls.Add(this.btnAcrescCompra);
+            this.tabPage3.Controls.Add(this.btnAceitarCompra);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.txtDecricaoCompra);
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.txtCompraValor);
             this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.textBox7);
-            this.tabPage3.Controls.Add(this.textBox8);
+            this.tabPage3.Controls.Add(this.txtCodigoCompra);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -420,107 +440,214 @@
             this.tabPage3.Text = "Compras";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // dataGridView2
+            // btnNovaCompra
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 8);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(377, 426);
-            this.dataGridView2.TabIndex = 19;
+            this.btnNovaCompra.Location = new System.Drawing.Point(498, 382);
+            this.btnNovaCompra.Name = "btnNovaCompra";
+            this.btnNovaCompra.Size = new System.Drawing.Size(113, 23);
+            this.btnNovaCompra.TabIndex = 27;
+            this.btnNovaCompra.Text = "Nova Compra";
+            this.btnNovaCompra.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // comboArtigos
             // 
-            this.button4.Location = new System.Drawing.Point(717, 383);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(85, 23);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "Eliminar Artigo";
-            this.button4.UseVisualStyleBackColor = true;
+            this.comboArtigos.FormattingEnabled = true;
+            this.comboArtigos.Location = new System.Drawing.Point(504, 221);
+            this.comboArtigos.Name = "comboArtigos";
+            this.comboArtigos.Size = new System.Drawing.Size(297, 21);
+            this.comboArtigos.TabIndex = 26;
             // 
-            // button5
+            // comboClienteCompra
             // 
-            this.button5.Location = new System.Drawing.Point(608, 383);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(103, 23);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Acrescentar Artigo";
-            this.button5.UseVisualStyleBackColor = true;
+            this.comboClienteCompra.FormattingEnabled = true;
+            this.comboClienteCompra.Location = new System.Drawing.Point(547, 328);
+            this.comboClienteCompra.Name = "comboClienteCompra";
+            this.comboClienteCompra.Size = new System.Drawing.Size(256, 21);
+            this.comboClienteCompra.TabIndex = 25;
             // 
-            // button6
+            // label15
             // 
-            this.button6.Location = new System.Drawing.Point(500, 383);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(102, 23);
-            this.button6.TabIndex = 16;
-            this.button6.Text = "Aceitar Alterações";
-            this.button6.UseVisualStyleBackColor = true;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(501, 331);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(42, 13);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Cliente:";
+            // 
+            // btnEliminarArtigoCompra
+            // 
+            this.btnEliminarArtigoCompra.Location = new System.Drawing.Point(727, 248);
+            this.btnEliminarArtigoCompra.Name = "btnEliminarArtigoCompra";
+            this.btnEliminarArtigoCompra.Size = new System.Drawing.Size(74, 23);
+            this.btnEliminarArtigoCompra.TabIndex = 23;
+            this.btnEliminarArtigoCompra.Text = "Eliminar";
+            this.btnEliminarArtigoCompra.UseVisualStyleBackColor = true;
+            this.btnEliminarArtigoCompra.Click += new System.EventHandler(this.btnEliminarArtigoCompra_Click);
+            // 
+            // btnAcresArtigoCompra
+            // 
+            this.btnAcresArtigoCompra.Location = new System.Drawing.Point(635, 248);
+            this.btnAcresArtigoCompra.Name = "btnAcresArtigoCompra";
+            this.btnAcresArtigoCompra.Size = new System.Drawing.Size(74, 23);
+            this.btnAcresArtigoCompra.TabIndex = 22;
+            this.btnAcresArtigoCompra.Text = "Acrescentar";
+            this.btnAcresArtigoCompra.UseVisualStyleBackColor = true;
+            this.btnAcresArtigoCompra.Click += new System.EventHandler(this.btnAcresArtigoCompra_Click);
+            // 
+            // gridComprasArtigos
+            // 
+            this.gridComprasArtigos.AllowUserToAddRows = false;
+            this.gridComprasArtigos.AllowUserToDeleteRows = false;
+            this.gridComprasArtigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridComprasArtigos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Descricao,
+            this.Quantidade});
+            this.gridComprasArtigos.Location = new System.Drawing.Point(504, 6);
+            this.gridComprasArtigos.Name = "gridComprasArtigos";
+            this.gridComprasArtigos.ReadOnly = true;
+            this.gridComprasArtigos.Size = new System.Drawing.Size(299, 209);
+            this.gridComprasArtigos.TabIndex = 20;
+            this.gridComprasArtigos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridComprasArtigos_CellClick);
+            // 
+            // Descricao
+            // 
+            this.Descricao.HeaderText = "Descricao";
+            this.Descricao.Name = "Descricao";
+            this.Descricao.ReadOnly = true;
+            this.Descricao.Width = 150;
+            // 
+            // Quantidade
+            // 
+            this.Quantidade.HeaderText = "Quantidade";
+            this.Quantidade.Name = "Quantidade";
+            this.Quantidade.ReadOnly = true;
+            // 
+            // gridCompras
+            // 
+            this.gridCompras.AllowUserToAddRows = false;
+            this.gridCompras.AllowUserToDeleteRows = false;
+            this.gridCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridCompras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Codigo,
+            this.Cliente,
+            this.Valor});
+            this.gridCompras.Location = new System.Drawing.Point(6, 8);
+            this.gridCompras.Name = "gridCompras";
+            this.gridCompras.ReadOnly = true;
+            this.gridCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridCompras.Size = new System.Drawing.Size(486, 426);
+            this.gridCompras.TabIndex = 19;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            this.Cliente.Width = 225;
+            // 
+            // Valor
+            // 
+            this.Valor.HeaderText = "Valor";
+            this.Valor.Name = "Valor";
+            this.Valor.ReadOnly = true;
+            // 
+            // btnEliminarCompra
+            // 
+            this.btnEliminarCompra.Location = new System.Drawing.Point(689, 411);
+            this.btnEliminarCompra.Name = "btnEliminarCompra";
+            this.btnEliminarCompra.Size = new System.Drawing.Size(113, 23);
+            this.btnEliminarCompra.TabIndex = 18;
+            this.btnEliminarCompra.Text = "Eliminar compra";
+            this.btnEliminarCompra.UseVisualStyleBackColor = true;
+            // 
+            // btnAcrescCompra
+            // 
+            this.btnAcrescCompra.Location = new System.Drawing.Point(688, 379);
+            this.btnAcrescCompra.Name = "btnAcrescCompra";
+            this.btnAcrescCompra.Size = new System.Drawing.Size(113, 23);
+            this.btnAcrescCompra.TabIndex = 17;
+            this.btnAcrescCompra.Text = "Acrescentar Compra";
+            this.btnAcrescCompra.UseVisualStyleBackColor = true;
+            this.btnAcrescCompra.Click += new System.EventHandler(this.btnAcrescCompra_Click);
+            // 
+            // btnAceitarCompra
+            // 
+            this.btnAceitarCompra.Location = new System.Drawing.Point(498, 411);
+            this.btnAceitarCompra.Name = "btnAceitarCompra";
+            this.btnAceitarCompra.Size = new System.Drawing.Size(113, 23);
+            this.btnAceitarCompra.TabIndex = 16;
+            this.btnAceitarCompra.Text = "Aceitar Alterações";
+            this.btnAceitarCompra.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(391, 87);
+            this.label9.Location = new System.Drawing.Point(498, 356);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 13);
             this.label9.TabIndex = 14;
             this.label9.Text = "Descrição:";
             // 
-            // textBox5
+            // txtDecricaoCompra
             // 
-            this.textBox5.Location = new System.Drawing.Point(455, 84);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(114, 20);
-            this.textBox5.TabIndex = 15;
+            this.txtDecricaoCompra.Location = new System.Drawing.Point(562, 353);
+            this.txtDecricaoCompra.Name = "txtDecricaoCompra";
+            this.txtDecricaoCompra.Size = new System.Drawing.Size(241, 20);
+            this.txtDecricaoCompra.TabIndex = 15;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(391, 35);
+            this.label10.Location = new System.Drawing.Point(697, 305);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.Size = new System.Drawing.Size(34, 13);
             this.label10.TabIndex = 9;
-            this.label10.Text = "Preço:";
+            this.label10.Text = "Valor:";
             // 
-            // label11
+            // txtCompraValor
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(391, 61);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Stock:";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(440, 32);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 11;
+            this.txtCompraValor.Location = new System.Drawing.Point(737, 302);
+            this.txtCompraValor.Name = "txtCompraValor";
+            this.txtCompraValor.Size = new System.Drawing.Size(66, 20);
+            this.txtCompraValor.TabIndex = 11;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(391, 8);
+            this.label12.Location = new System.Drawing.Point(501, 305);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 13);
             this.label12.TabIndex = 12;
             this.label12.Text = "Codigo:";
             // 
-            // textBox7
+            // txtCodigoCompra
             // 
-            this.textBox7.Location = new System.Drawing.Point(440, 58);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 13;
+            this.txtCodigoCompra.Location = new System.Drawing.Point(562, 302);
+            this.txtCodigoCompra.Name = "txtCodigoCompra";
+            this.txtCodigoCompra.Size = new System.Drawing.Size(129, 20);
+            this.txtCodigoCompra.TabIndex = 8;
             // 
-            // textBox8
+            // label11
             // 
-            this.textBox8.Location = new System.Drawing.Point(440, 6);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(129, 20);
-            this.textBox8.TabIndex = 8;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(501, 250);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Quantidade:";
+            // 
+            // txtQuantidadeCompra
+            // 
+            this.txtQuantidadeCompra.Location = new System.Drawing.Point(572, 248);
+            this.txtQuantidadeCompra.Name = "txtQuantidadeCompra";
+            this.txtQuantidadeCompra.Size = new System.Drawing.Size(39, 20);
+            this.txtQuantidadeCompra.TabIndex = 28;
             // 
             // Main
             // 
@@ -542,7 +669,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridClientes)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridComprasArtigos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCompras)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -577,22 +705,34 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtNIF;
         private System.Windows.Forms.TextBox txtNome;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnEliminarCompra;
+        private System.Windows.Forms.Button btnAcrescCompra;
+        private System.Windows.Forms.Button btnAceitarCompra;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtDecricaoCompra;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtCompraValor;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox txtCodigoCompra;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtTele;
         private System.Windows.Forms.Button btnCartaoCliente;
+        private System.Windows.Forms.DataGridView gridComprasArtigos;
+        private System.Windows.Forms.DataGridView gridCompras;
+        private System.Windows.Forms.Button btnEliminarArtigoCompra;
+        private System.Windows.Forms.ComboBox comboClienteCompra;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox comboArtigos;
+        private System.Windows.Forms.Button btnAcresArtigoCompra;
+        private System.Windows.Forms.Button btnNovaCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Descricao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantidade;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtQuantidadeCompra;
     }
 }

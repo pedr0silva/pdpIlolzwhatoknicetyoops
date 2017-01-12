@@ -15,6 +15,7 @@ namespace LojaUI
     public partial class Main : Form
     {
         public Loja SuperDume;
+        private Compra compraAux;
 
         private void CriaTabelaArtigo()
         {
@@ -35,6 +36,8 @@ namespace LojaUI
                 gridArtigos.Rows[index].Cells[2].Value = art.Preco_unitario;
                 gridArtigos.Rows[index].Cells[3].Value = art.Em_stock;
             }
+
+            comboArtigos.Items.AddRange(this.SuperDume.Dicionario_Artigos.Values.ToArray());
         }
         private void CriaTabelaCliente()
         {
@@ -60,6 +63,25 @@ namespace LojaUI
                 gridClientes.Rows[index].Cells[5].Value = cli.Telemovel;
             }
         }
+        private void CriarTabelaCompras()
+        {
+            foreach (Compra com in SuperDume.Dicionario_Compras.Values)
+            {
+                int index = gridClientes.Rows.Add();
+                gridClientes.Rows[index].Cells[0].Value = com.Codigo_Compra;
+                gridClientes.Rows[index].Cells[1].Value = com.OCliente.Nome;
+                gridClientes.Rows[index].Cells[2].Value = com.Valor;
+            }
+        }
+        private void CriarTabelaComprasArtigos(Compra comp)
+        {
+            foreach (Artigo art in comp.Artigos_comprados)
+            {
+                int index = gridComprasArtigos.Rows.Add();
+                gridComprasArtigos.Rows[index].Cells[0].Value = comp.Artigos_comprados[index].Descricao;
+                gridComprasArtigos.Rows[index].Cells[0].Value = comp.Artigos_comprados[index].Quantidade;
+            }
+        }
 
 
         public Main(Loja loj)
@@ -72,15 +94,27 @@ namespace LojaUI
 
             this.SuperDume = loj;
             this.FormClosing += new FormClosingEventHandler(Main_FormClosing);
+
+            compraAux = new Compra();
+
             CriaTabelaArtigo();
             CriaTabelaCliente();
+            CriarTabelaCompras();
+
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.OpenOrCreate);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(s, SuperDume);
+            if (MessageBox.Show("Tem a certeza que pretende sair?", "Sair?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.OpenOrCreate);
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(s, SuperDume);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void btnAcres_Click(object sender, EventArgs e)
@@ -277,6 +311,67 @@ namespace LojaUI
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void gridComprasArtigos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnAcrescCompra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SuperDume.Dicionario_Compras.ContainsKey(txtCodigoCompra.Text))
+                {
+                    if (!txtCodigoCompra.Text.Trim().Equals("") && !txtNome.Text.Trim().Equals("") && !txtNIF.Text.Trim().Equals("") && !txtMorada.Text.Trim().Equals(""))
+                    {
+                        int telemovel = 0;
+
+                        try
+                        {
+                            telemovel = int.Parse(txtTele.Text);
+                        }
+                        catch
+                        {
+                            telemovel = 0;
+                        }
+                        Cliente cli = new Cliente(txtNome.Text, txtCC.Text, int.Parse(txtNIF.Text), txtMorada.Text, telemovel, txtEmail.Text);
+                        SuperDume.Dicionario_Clientes.Add(cli.CC, cli);
+                        CriaTabelaCliente();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Preencha todos os campos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A identificacao introduzida é invalida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAcresArtigoCompra_Click(object sender, EventArgs e)
+        {
+            if (comboArtigos.SelectedIndex > -1)
+            {
+                compraAux.Artigos_comprados.Add((Artigo)comboArtigos.SelectedItem);
+                CriarTabelaComprasArtigos(compraAux);
+            }
+            else
+            {
+                MessageBox.Show("Escolha um artigo.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEliminarArtigoCompra_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnCartaoCliente_Click(object sender, EventArgs e)

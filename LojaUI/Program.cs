@@ -25,7 +25,7 @@ namespace LojaUI
             {
                 Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.Open);
                 BinaryFormatter bf = new BinaryFormatter();
-                superDume = (Loja)bf.Deserialize(s);
+                //superDume = (Loja)bf.Deserialize(s);
             }
             else
             {

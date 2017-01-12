@@ -21,11 +21,11 @@ namespace LojaUI
             InitializeComponent();
             this.superDume = superDume;
 
-            if(superDume.Credencias.rememberMe)
+            if(LojaUI.Properties.Settings.Default.rememberMe)
             {
-                txtUser.Text = superDume.Credencias.user;
-                txtPass.Text = superDume.Credencias.password;
-                checkRemMe.Checked = true;
+                txtUser.Text = LojaUI.Properties.Settings.Default.user;
+                txtPass.Text = LojaUI.Properties.Settings.Default.password;
+                checkRemMe.Checked = LojaUI.Properties.Settings.Default.rememberMe;
             }
         }
 
@@ -34,7 +34,12 @@ namespace LojaUI
             superDume.Credencias.CorrectPassword = false;
             superDume.Credencias.user = txtUser.Text;
             superDume.Credencias.password = txtPass.Text;
-            superDume.Credencias.rememberMe = checkRemMe.Checked;    
+
+            LojaUI.Properties.Settings.Default.user = txtUser.Text;
+            LojaUI.Properties.Settings.Default.password = txtPass.Text;
+            LojaUI.Properties.Settings.Default.rememberMe = checkRemMe.Checked;
+            LojaUI.Properties.Settings.Default.Save();
+
             foreach(string s in superDume.Credencias.userPass.Keys)
             {
                 if(superDume.Credencias.user.Equals(s) && superDume.Credencias.password.Equals(superDume.Credencias.userPass[s]))
@@ -46,6 +51,9 @@ namespace LojaUI
                     break;
                 }
             }
+
+            MessageBox.Show("As credenciais que inseriu nao estao correctos!", "Erro de Autenticacao");
+
         }
     }
 }

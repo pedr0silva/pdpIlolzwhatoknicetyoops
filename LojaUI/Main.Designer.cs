@@ -127,7 +127,7 @@
             this.gridArtigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridArtigos.Size = new System.Drawing.Size(796, 369);
             this.gridArtigos.TabIndex = 0;
-            this.gridArtigos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridArtigos_CellContentClick);
+            this.gridArtigos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridArtigos_CellClick);
             // 
             // btnAcres
             // 
@@ -299,8 +299,10 @@
             this.gridClientes.Location = new System.Drawing.Point(6, 8);
             this.gridClientes.Name = "gridClientes";
             this.gridClientes.ReadOnly = true;
+            this.gridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridClientes.Size = new System.Drawing.Size(796, 340);
             this.gridClientes.TabIndex = 0;
+            this.gridClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridClientes_CellClick);
             // 
             // btnEliminarCliente
             // 
@@ -310,6 +312,7 @@
             this.btnEliminarCliente.TabIndex = 10;
             this.btnEliminarCliente.Text = "Eliminar Cliente";
             this.btnEliminarCliente.UseVisualStyleBackColor = true;
+            this.btnEliminarCliente.Click += new System.EventHandler(this.btnEliminarCliente_Click);
             // 
             // btnAcrescentarCliente
             // 
@@ -319,6 +322,7 @@
             this.btnAcrescentarCliente.TabIndex = 8;
             this.btnAcrescentarCliente.Text = "Acrescentar Cliente";
             this.btnAcrescentarCliente.UseVisualStyleBackColor = true;
+            this.btnAcrescentarCliente.Click += new System.EventHandler(this.btnAcrescentarCliente_Click);
             // 
             // txtAlteracoesCliente
             // 
@@ -328,6 +332,7 @@
             this.txtAlteracoesCliente.TabIndex = 7;
             this.txtAlteracoesCliente.Text = "Aceitar Alterações";
             this.txtAlteracoesCliente.UseVisualStyleBackColor = true;
+            this.txtAlteracoesCliente.Click += new System.EventHandler(this.txtAlteracoesCliente_Click);
             // 
             // label5
             // 

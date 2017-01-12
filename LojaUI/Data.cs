@@ -124,6 +124,17 @@ namespace LojaUI
                 MessageBox.Show("Artigo nao existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        public void EliminaClienteForm(string s)
+        {
+            if (Dicionario_Clientes.ContainsKey(s))
+            {
+                Dicionario_Clientes.Remove(s);
+            }
+            else
+            {
+                MessageBox.Show("Clente nao existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
     [Serializable]

@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace LojaUI
 {
-
     [Serializable]
     public class Loja
     {
@@ -127,6 +126,7 @@ namespace LojaUI
         }
 
     }
+    [Serializable]
     public class Artigo
     {
         public int Codigo_de_artigo { get; set; }
@@ -152,6 +152,7 @@ namespace LojaUI
             this.Quantidade = quantidade;
         }
     }
+    [Serializable]
     public class Cartao_de_Cliente
     {
         public List<Compra> Lista_de_compras { get; set; }
@@ -163,6 +164,7 @@ namespace LojaUI
             this.Pontos = 0;
         }
     }
+    [Serializable]
     public class Cliente
     {
         public string Nome { get; set; }
@@ -186,6 +188,7 @@ namespace LojaUI
             this.Cartao = new Cartao_de_Cliente();
         }
     }
+    [Serializable]
     public class Credencial
     {
         public bool CorrectPassword;
@@ -206,6 +209,7 @@ namespace LojaUI
             userPass.Add("Daniela", "paradigmas");
         }
     }
+    [Serializable]
     public class Compra
     {
         public List<Artigo> Artigos_comprados { get; set; }

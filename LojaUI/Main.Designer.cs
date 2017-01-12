@@ -127,6 +127,7 @@
             this.gridArtigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridArtigos.Size = new System.Drawing.Size(796, 369);
             this.gridArtigos.TabIndex = 0;
+            this.gridArtigos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridArtigos_CellContentClick);
             // 
             // btnAcres
             // 
@@ -156,6 +157,7 @@
             this.btnAceitar.TabIndex = 5;
             this.btnAceitar.Text = "Aceitar Alterações";
             this.btnAceitar.UseVisualStyleBackColor = true;
+            this.btnAceitar.Click += new System.EventHandler(this.btnAceitar_Click);
             // 
             // label4
             // 
@@ -524,7 +526,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " SuperDume";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

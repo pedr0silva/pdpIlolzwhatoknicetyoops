@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LojaUI
 {
-   
+
     [Serializable]
     public class Loja
     {
@@ -14,8 +15,8 @@ namespace LojaUI
         public string Morada { get; set; }
         public string Localidade { get; set; }
         public int Codigo_da_Loja { get; set; }
-        public Dictionary<int,Artigo> Dicionario_Artigos { get; set; }
-        public Dictionary<string,Cliente> Dicionario_Clientes { get; set; }
+        public Dictionary<int, Artigo> Dicionario_Artigos { get; set; }
+        public Dictionary<string, Cliente> Dicionario_Clientes { get; set; }
         public Credencial Credencias { get; set; }
 
         private static int numero_de_lojas = 1;
@@ -42,7 +43,7 @@ namespace LojaUI
         }
         public void AdicionaArtigo(Artigo a)
         {
-            if(Dicionario_Artigos.ContainsKey(a.Codigo_de_artigo))
+            if (Dicionario_Artigos.ContainsKey(a.Codigo_de_artigo))
             {
                 throw new Exception("Artigo ja existente");
             }
@@ -70,15 +71,15 @@ namespace LojaUI
             string imprimeArtigos = "";
             for (int i = 0; i < c.Cartao.Lista_de_compras.Count(); i++)
             {
-                for(int j = 0; j < c.Cartao.Lista_de_compras[i].Artigos_comprados.Count(); j++)
+                for (int j = 0; j < c.Cartao.Lista_de_compras[i].Artigos_comprados.Count(); j++)
                 {
                     Artigo art = c.Cartao.Lista_de_compras[i].Artigos_comprados[j];
                     imprimeArtigos += (i + 1)
                                    + " CODIGO: " + art.Codigo_de_artigo
-                                   + " DESCRICAO: " + art.Descricao 
+                                   + " DESCRICAO: " + art.Descricao
                                    + " PRECO UNITARIO: " + art.Preco_unitario
                                    + " QUANTIDADE: " + art.Quantidade + "\n";
-                        
+
                 }
                 Console.WriteLine(imprimeArtigos + " VALOR DA COMPRA: " + c.Cartao.Lista_de_compras[i].Valor);
                 imprimeArtigos = "";
@@ -92,7 +93,7 @@ namespace LojaUI
                 Compra comp = c.Cartao.Lista_de_compras[i];
                 somatorio += comp.Valor;
             }
-        Console.WriteLine("VALOR TOTAL GASTO: " + somatorio + " PONTOS ACUMULADOS: " + c.Cartao.Pontos);
+            Console.WriteLine("VALOR TOTAL GASTO: " + somatorio + " PONTOS ACUMULADOS: " + c.Cartao.Pontos);
         }
         public void EliminaArtigo()
         {
@@ -112,6 +113,17 @@ namespace LojaUI
                 return;
             }
             Dicionario_Artigos.Remove(opcao - 1);
+        }
+        public void EliminaArtigoForm(string s)
+        {
+            if (Dicionario_Artigos.ContainsKey(int.Parse(s)))
+            {
+                Dicionario_Artigos.Remove(int.Parse(s));
+            }
+            else
+            {
+                MessageBox.Show("Artigo nao existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

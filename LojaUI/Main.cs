@@ -18,12 +18,13 @@ namespace LojaUI
         {
             //Cria as colunas relevantes para os livros
             gridArtigos.Columns.Clear();
+            gridArtigos.AutoGenerateColumns = false;
             gridArtigos.Columns.Add("Codigo", "Codigo");
             gridArtigos.Columns.Add("Descricao", "Descricao");
             gridArtigos.Columns.Add("Preco", "Preco");
             gridArtigos.Columns.Add("Stock", "Stock");
 
-            //adiciona cada livro existente na biblioteca à gridview
+            //adiciona cada artigo existente na biblioteca à gridview
             foreach (Artigo art in SuperDume.Dicionario_Artigos.Values)
             {
                 int index = gridArtigos.Rows.Add();
@@ -42,6 +43,8 @@ namespace LojaUI
             CriaTabelaArtigo();
         }
 
+        //Main_FormClosing
+
         private void btnAcres_Click(object sender, EventArgs e)
         {
             try
@@ -52,7 +55,6 @@ namespace LojaUI
                     {
                         Artigo art = new Artigo(int.Parse(txtCodigo.Text), txtDesc.Text, float.Parse(txtPreco.Text), int.Parse(txtStock.Text));
                         SuperDume.Dicionario_Artigos.Add(art.Codigo_de_artigo, art);
-                        MessageBox.Show("Artigo adicionado com sucesso.");
                         CriaTabelaArtigo();
                     }
                     else
@@ -68,6 +70,30 @@ namespace LojaUI
             catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridArtigos.SelectedRows.Count > 0)
+                {
+                    DataGridViewSelectedRowCollection selection = gridArtigos.SelectedRows;
+                    foreach (DataGridViewRow r in selection)
+                    {
+                        string codigo = r.Cells[0].Value.ToString();
+                        SuperDume.EliminaArtigoForm(codigo);
+                    }
+                    CriaTabelaArtigo();
+                }
+                else
+                {
+                    MessageBox.Show("Selecione o que deseja apagar.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

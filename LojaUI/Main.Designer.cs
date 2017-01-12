@@ -121,8 +121,10 @@
             this.gridArtigos.AllowUserToDeleteRows = false;
             this.gridArtigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridArtigos.Location = new System.Drawing.Point(6, 6);
+            this.gridArtigos.MultiSelect = false;
             this.gridArtigos.Name = "gridArtigos";
             this.gridArtigos.ReadOnly = true;
+            this.gridArtigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridArtigos.Size = new System.Drawing.Size(796, 369);
             this.gridArtigos.TabIndex = 0;
             // 
@@ -144,6 +146,7 @@
             this.btnEliminar.TabIndex = 7;
             this.btnEliminar.Text = "Eliminar Artigo";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnAceitar
             // 

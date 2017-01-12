@@ -38,6 +38,7 @@ namespace LojaUI
         {
             InitializeComponent();
             this.SuperDume = loj;
+            this.FormClosing += new FormClosingEventHandler(Main_FormClosing);
             CriaTabelaArtigo();
         }
 
@@ -68,6 +69,11 @@ namespace LojaUI
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

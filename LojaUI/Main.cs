@@ -163,6 +163,7 @@ namespace LojaUI
                 MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void gridArtigos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (gridArtigos.SelectedRows.Count > 0)
@@ -277,5 +278,36 @@ namespace LojaUI
                 MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnCartaoCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ccaux = (string)gridClientes.SelectedRows[0].Cells[1].Value;
+                Cliente cli;
+
+                foreach (string cc in SuperDume.Dicionario_Clientes.Keys)
+                {
+                    try
+                    {
+                        if (cc == ccaux)
+                        {
+                            cli = SuperDume.Dicionario_Clientes[cc];
+                            Application.Run(new Cartao_Cliente(cli));
+                            break;
+                        }      
+                    }
+                    catch(Exception)
+                    {
+                        MessageBox.Show("O Cliente nao esta na base de dados!", "Erro");
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Nao Seleccionou nenhum cliente!","Erro");
+            }
+        }
     }
+    ;
 }

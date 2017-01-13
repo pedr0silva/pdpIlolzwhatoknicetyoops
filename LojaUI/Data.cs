@@ -54,20 +54,6 @@ namespace LojaUI
                 Dicionario_Artigos.Add(a.Codigo_de_artigo, a);
             }
         }
-        public void AdicionaPontos(Cliente c)       //Nao devia estar na classe cliente?
-        {
-            for (float aux = c.Cartao.Lista_de_compras[c.Cartao.Lista_de_compras.Count() - 1].Valor; aux - 50 > 0; aux -= 50)   //pq count() - 1? Isto so trabalha 1 compra de cada vez certo?
-            {
-                c.Cartao.Pontos += 3;
-            }
-        }
-        public void CalculaValorCompra(Compra comp)     //Nao devia estar na classe compra?
-        {
-            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
-            {
-                comp.Valor += comp.Artigos_comprados[i].Preco_unitario * comp.Artigos_comprados[i].Quantidade;
-            }
-        }
         public void ConsultarCompras(Cliente c)
         {
             string imprimeArtigos = "";
@@ -120,7 +106,7 @@ namespace LojaUI
         //Funcoes para forms 
         public void CriarCompraForm(Compra comp)
         {
-            if(!Dicionario_Compras.ContainsKey(comp.Codigo_Compra))
+            if (!Dicionario_Compras.ContainsKey(comp.Codigo_Compra))
             {
                 Dicionario_Compras.Add(comp.Codigo_Compra, comp);
             }
@@ -165,7 +151,7 @@ namespace LojaUI
 
     }
     [Serializable]
-    public class Artigo
+    public class Artigo : ICloneable
     {
         public int Codigo_de_artigo { get; set; }
         public string Descricao { get; set; }
@@ -189,10 +175,19 @@ namespace LojaUI
             this.Preco_unitario = preco_unitario;
             this.Quantidade = quantidade;
         }
+        public Artigo()
+        {
+
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
 
         public override string ToString()
         {
-            return Descricao + ", " + Preco_unitario + "."; 
+            return Descricao + ", " + Preco_unitario + ".";
         }
     }
     [Serializable]
@@ -218,8 +213,6 @@ namespace LojaUI
         public string Email { get; set; }
         public Cartao_de_Cliente Cartao { get; set; }
 
-
-
         public Cliente(string nome, string cc, int NIF, string morada, int tlm, string email)
         {
             this.Nome = nome;
@@ -229,6 +222,23 @@ namespace LojaUI
             this.Telemovel = tlm;
             this.Email = email;
             this.Cartao = new Cartao_de_Cliente();
+        }
+
+        public void CalculaPontos()
+        {
+            float soma = 0;
+            for (int i = 0; i < Cartao.Lista_de_compras.Count() ; i++)
+            {
+                soma += Cartao.Lista_de_compras[i].Valor;
+            }
+            soma = soma / 50;
+            Math.Floor(soma);
+            this.Cartao.Pontos = (int)soma * 3;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
     }
     [Serializable]
@@ -274,13 +284,13 @@ namespace LojaUI
             Artigos_comprados = new List<Artigo>();
         }
 
-        public float CalculaValorCompra(Compra comp)
+        public void CalculaValorCompra()
         {
-            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
+            Valor = 0;
+            for (int i = 0; i < this.Artigos_comprados.Count(); i++)
             {
-                comp.Valor += comp.Artigos_comprados[i].Preco_unitario * comp.Artigos_comprados[i].Quantidade;
+                this.Valor += this.Artigos_comprados[i].Preco_unitario * this.Artigos_comprados[i].Quantidade;
             }
-            return comp.Valor;
         }
     }
 

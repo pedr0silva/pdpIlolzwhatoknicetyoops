@@ -20,8 +20,9 @@ namespace LojaUI
         {
             InitializeComponent();
             this.superDume = superDume;
+            superDume.Credencias.CorrectPassword = false;
 
-            if(LojaUI.Properties.Settings.Default.rememberMe)
+            if (LojaUI.Properties.Settings.Default.rememberMe)
             {
                 txtUser.Text = LojaUI.Properties.Settings.Default.user;
                 txtPass.Text = LojaUI.Properties.Settings.Default.password;
@@ -31,7 +32,7 @@ namespace LojaUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            superDume.Credencias.CorrectPassword = false;
+
             superDume.Credencias.user = txtUser.Text;
             superDume.Credencias.password = txtPass.Text;
 

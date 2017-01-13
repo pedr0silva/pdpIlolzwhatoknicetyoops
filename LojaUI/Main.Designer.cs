@@ -61,6 +61,8 @@
             this.txtNIF = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtQuantidadeCompra = new System.Windows.Forms.TextBox();
             this.btnNovaCompra = new System.Windows.Forms.Button();
             this.comboArtigos = new System.Windows.Forms.ComboBox();
             this.comboClienteCompra = new System.Windows.Forms.ComboBox();
@@ -68,6 +70,7 @@
             this.btnEliminarArtigoCompra = new System.Windows.Forms.Button();
             this.btnAcresArtigoCompra = new System.Windows.Forms.Button();
             this.gridComprasArtigos = new System.Windows.Forms.DataGridView();
+            this.CodigoCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridCompras = new System.Windows.Forms.DataGridView();
@@ -83,8 +86,6 @@
             this.txtCompraValor = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtCodigoCompra = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtQuantidadeCompra = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridArtigos)).BeginInit();
@@ -271,6 +272,7 @@
             this.btnCartaoCliente.TabIndex = 9;
             this.btnCartaoCliente.Text = "Cartão de Cliente";
             this.btnCartaoCliente.UseVisualStyleBackColor = true;
+            this.btnCartaoCliente.Click += new System.EventHandler(this.btnCartaoCliente_Click);
             // 
             // txtEmail
             // 
@@ -440,6 +442,22 @@
             this.tabPage3.Text = "Compras";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(501, 250);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Quantidade:";
+            // 
+            // txtQuantidadeCompra
+            // 
+            this.txtQuantidadeCompra.Location = new System.Drawing.Point(572, 248);
+            this.txtQuantidadeCompra.Name = "txtQuantidadeCompra";
+            this.txtQuantidadeCompra.Size = new System.Drawing.Size(39, 20);
+            this.txtQuantidadeCompra.TabIndex = 28;
+            // 
             // btnNovaCompra
             // 
             this.btnNovaCompra.Location = new System.Drawing.Point(498, 382);
@@ -448,6 +466,7 @@
             this.btnNovaCompra.TabIndex = 27;
             this.btnNovaCompra.Text = "Nova Compra";
             this.btnNovaCompra.UseVisualStyleBackColor = true;
+            this.btnNovaCompra.Click += new System.EventHandler(this.btnNovaCompra_Click);
             // 
             // comboArtigos
             // 
@@ -500,27 +519,36 @@
             this.gridComprasArtigos.AllowUserToDeleteRows = false;
             this.gridComprasArtigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridComprasArtigos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CodigoCompra,
             this.Descricao,
             this.Quantidade});
             this.gridComprasArtigos.Location = new System.Drawing.Point(504, 6);
             this.gridComprasArtigos.Name = "gridComprasArtigos";
             this.gridComprasArtigos.ReadOnly = true;
+            this.gridComprasArtigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridComprasArtigos.Size = new System.Drawing.Size(299, 209);
             this.gridComprasArtigos.TabIndex = 20;
-            this.gridComprasArtigos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridComprasArtigos_CellClick);
+            // 
+            // CodigoCompra
+            // 
+            this.CodigoCompra.HeaderText = "Codigo";
+            this.CodigoCompra.Name = "CodigoCompra";
+            this.CodigoCompra.ReadOnly = true;
+            this.CodigoCompra.Width = 50;
             // 
             // Descricao
             // 
             this.Descricao.HeaderText = "Descricao";
             this.Descricao.Name = "Descricao";
             this.Descricao.ReadOnly = true;
-            this.Descricao.Width = 150;
+            this.Descricao.Width = 120;
             // 
             // Quantidade
             // 
             this.Quantidade.HeaderText = "Quantidade";
             this.Quantidade.Name = "Quantidade";
             this.Quantidade.ReadOnly = true;
+            this.Quantidade.Width = 80;
             // 
             // gridCompras
             // 
@@ -537,6 +565,7 @@
             this.gridCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridCompras.Size = new System.Drawing.Size(486, 426);
             this.gridCompras.TabIndex = 19;
+            this.gridCompras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridCompras_CellClick);
             // 
             // Codigo
             // 
@@ -565,6 +594,7 @@
             this.btnEliminarCompra.TabIndex = 18;
             this.btnEliminarCompra.Text = "Eliminar compra";
             this.btnEliminarCompra.UseVisualStyleBackColor = true;
+            this.btnEliminarCompra.Click += new System.EventHandler(this.btnEliminarCompra_Click);
             // 
             // btnAcrescCompra
             // 
@@ -584,6 +614,7 @@
             this.btnAceitarCompra.TabIndex = 16;
             this.btnAceitarCompra.Text = "Aceitar Alterações";
             this.btnAceitarCompra.UseVisualStyleBackColor = true;
+            this.btnAceitarCompra.Click += new System.EventHandler(this.btnAceitarCompra_Click);
             // 
             // label9
             // 
@@ -614,6 +645,7 @@
             // 
             this.txtCompraValor.Location = new System.Drawing.Point(737, 302);
             this.txtCompraValor.Name = "txtCompraValor";
+            this.txtCompraValor.ReadOnly = true;
             this.txtCompraValor.Size = new System.Drawing.Size(66, 20);
             this.txtCompraValor.TabIndex = 11;
             // 
@@ -632,22 +664,6 @@
             this.txtCodigoCompra.Name = "txtCodigoCompra";
             this.txtCodigoCompra.Size = new System.Drawing.Size(129, 20);
             this.txtCodigoCompra.TabIndex = 8;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(501, 250);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 13);
-            this.label11.TabIndex = 29;
-            this.label11.Text = "Quantidade:";
-            // 
-            // txtQuantidadeCompra
-            // 
-            this.txtQuantidadeCompra.Location = new System.Drawing.Point(572, 248);
-            this.txtQuantidadeCompra.Name = "txtQuantidadeCompra";
-            this.txtQuantidadeCompra.Size = new System.Drawing.Size(39, 20);
-            this.txtQuantidadeCompra.TabIndex = 28;
             // 
             // Main
             // 
@@ -730,9 +746,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Descricao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantidade;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtQuantidadeCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Descricao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantidade;
     }
 }

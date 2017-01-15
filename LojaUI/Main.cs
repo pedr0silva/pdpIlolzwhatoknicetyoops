@@ -19,15 +19,9 @@ namespace LojaUI
 
         private void CriaTabelaArtigo()
         {
-            //Cria as colunas relevantes para os livros
-            gridArtigos.Columns.Clear();
-            gridArtigos.AutoGenerateColumns = false;
-            gridArtigos.Columns.Add("Codigo", "Codigo");
-            gridArtigos.Columns.Add("Descricao", "Descricao");
-            gridArtigos.Columns.Add("Preco", "Preco");
-            gridArtigos.Columns.Add("Stock", "Stock");
+            gridArtigos.Rows.Clear();
 
-            //adiciona cada artigo existente na biblioteca à gridview
+            //Adiciona cada artigo existente na Loja à gridview.
             foreach (Artigo art in SuperDume.Dicionario_Artigos.Values)
             {
                 int index = gridArtigos.Rows.Add();
@@ -37,22 +31,16 @@ namespace LojaUI
                 gridArtigos.Rows[index].Cells[3].Value = art.Em_stock;
             }
 
+            //Adiciona no ComboBox das compras os artigos.
             comboArtigos.Items.Clear();
             comboArtigos.Items.AddRange(this.SuperDume.Dicionario_Artigos.Values.ToArray());
         }
         private void CriaTabelaCliente()
         {
-            //Cria as colunas relevantes para os livros
-            gridClientes.Columns.Clear();
-            gridClientes.AutoGenerateColumns = false;
-            gridClientes.Columns.Add("Nome", "Nome");
-            gridClientes.Columns.Add("Identificacao", "Identificacao");
-            gridClientes.Columns.Add("Contribuinte", "Contribuinte");
-            gridClientes.Columns.Add("Morada", "Morada");
-            gridClientes.Columns.Add("Email", "Email");
-            gridClientes.Columns.Add("Telefone", "Telefone");
+            //Cria as colunas relevantes.
+            gridClientes.Rows.Clear();
 
-            //adiciona cada artigo existente na biblioteca à gridview
+            //Adiciona cada Cliente existente na Loja à gridview
             foreach (Cliente cli in SuperDume.Dicionario_Clientes.Values)
             {
                 int index = gridClientes.Rows.Add();
@@ -64,17 +52,16 @@ namespace LojaUI
                 gridClientes.Rows[index].Cells[5].Value = cli.Telemovel;
             }
 
+            //Adiciona no ComboBox das compras os Clientes.
             comboClienteCompra.Items.Clear();
             comboClienteCompra.Items.AddRange(this.SuperDume.Dicionario_Clientes.Values.ToArray());
         }
         private void CriarTabelaCompras()
         {
-            gridCompras.Columns.Clear();
-            gridCompras.AutoGenerateColumns = false;
-            gridCompras.Columns.Add("CodigoCompra", "Codigo");
-            gridCompras.Columns.Add("ClienteCompra", "Cliente");
-            gridCompras.Columns.Add("ValorCompra", "Valor");
+            //Cria as colunas relevantes.
+            gridCompras.Rows.Clear();
 
+            //Adiciona cada Compra existente na Loja à gridview
             foreach (string com in SuperDume.Dicionario_Compras.Keys)
             {
                 int index = gridCompras.Rows.Add();
@@ -85,6 +72,7 @@ namespace LojaUI
         }
         private void CriarTabelaComprasArtigos(Compra comp)
         {
+            //Adiciona cada Artigo da compra escolhida na gridview.
             gridComprasArtigos.Rows.Clear();
             foreach (Artigo art in comp.Artigos_comprados)
             {
@@ -94,25 +82,65 @@ namespace LojaUI
                 gridComprasArtigos.Rows[index].Cells[0].Value = comp.Artigos_comprados[index].Codigo_de_artigo;
             }
         }
-
+        private void LimparCompra()
+        {
+            compraAux = new Compra();
+            CriarTabelaComprasArtigos(compraAux);
+            if (SuperDume.Dicionario_Compras.Count() == 0)
+            {
+                txtCodigoCompra.Text = "1";
+            }
+            else
+            {
+                txtCodigoCompra.Text = (int.Parse(SuperDume.Dicionario_Compras.Keys.Max()) + 1).ToString();
+            }
+            txtDecricaoCompra.Text = "";
+            txtQuantidadeCompra.Text = "";
+            txtCompraValor.Text = "";
+            gridCompras.ClearSelection();
+            gridComprasArtigos.ClearSelection();
+        }
+        private void LimpaArtigo()
+        {
+            if (SuperDume.Dicionario_Artigos.Count() == 0)
+            {
+                txtCodigo.Text = "1";
+            }
+            else
+            {
+                txtCodigo.Text = (SuperDume.Dicionario_Artigos.Keys.Max() + 1).ToString();
+            }
+            txtPreco.Text = "";
+            txtStock.Text = "";
+            txtDesc.Text = "";
+            gridArtigos.ClearSelection();
+        }
+        private void LimpaCliente()
+        {
+            txtNome.Text = "";
+            txtCC.Text = "";
+            txtNIF.Text = "";
+            txtMorada.Text = "";
+            txtEmail.Text = "";
+            txtTele.Text = "";
+            gridClientes.ClearSelection();
+        }
 
         public Main(Loja loj)
         {
             InitializeComponent();
 
-            this.WindowState = FormWindowState.Minimized;
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-
             this.SuperDume = loj;
-            this.FormClosing += new FormClosingEventHandler(Main_FormClosing);
-
             compraAux = new Compra();
 
+            this.FormClosing += new FormClosingEventHandler(Main_FormClosing);
+
+            //Gera as tabelas.
             CriaTabelaArtigo();
             CriaTabelaCliente();
             CriarTabelaCompras();
-
+            LimparCompra();
+            LimpaArtigo();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -129,6 +157,7 @@ namespace LojaUI
             }
         }
 
+        //ARTIGOS
         private void btnAcres_Click(object sender, EventArgs e)
         {
             try
@@ -140,40 +169,21 @@ namespace LojaUI
                         Artigo art = new Artigo(int.Parse(txtCodigo.Text), txtDesc.Text, float.Parse(txtPreco.Text), int.Parse(txtStock.Text));
                         SuperDume.Dicionario_Artigos.Add(art.Codigo_de_artigo, art);
                         CriaTabelaArtigo();
+                        LimpaArtigo();
                     }
                     else
                     {
-                        MessageBox.Show("Preencha todos os campos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw new Exception("Preencha todos os campos.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("O Codigo introduzido é invalido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new Exception("O Codigo introduzido é invalido.");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (gridArtigos.SelectedRows.Count > 0)
-                {
-                    string codigo = gridArtigos.SelectedRows[0].Cells[0].Value.ToString();
-                    SuperDume.EliminaArtigoForm(codigo);
-                    CriaTabelaArtigo();
-                }
-                else
-                {
-                    MessageBox.Show("Selecione o que deseja apagar.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnAceitar_Click(object sender, EventArgs e)
@@ -190,18 +200,24 @@ namespace LojaUI
                             SuperDume.Dicionario_Artigos[int.Parse(codigo)].Descricao = txtDesc.Text;
                             SuperDume.Dicionario_Artigos[int.Parse(codigo)].Em_stock = int.Parse(txtStock.Text);
                             SuperDume.Dicionario_Artigos[int.Parse(codigo)].Preco_unitario = float.Parse(txtPreco.Text);
+                            LimpaArtigo();
+                            LimparCompra();
+                            CriaTabelaArtigo();
+                            CriarTabelaCompras();
                         }
-                        CriaTabelaArtigo();
+                        else
+                        {
+                            throw new Exception("Algo deu errado.");
+                        }                     
                     }
                     else
                     {
-                        MessageBox.Show("Preencha todos os campos.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw new Exception("Preencha todos os campos.");
                     }
-
                 }
                 else
                 {
-                    MessageBox.Show("Selecione o que deseja alterar.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new Exception("Selecione o que deseja alterar.");
                 }
             }
             catch (Exception ex)
@@ -209,7 +225,31 @@ namespace LojaUI
                 MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridArtigos.SelectedRows.Count > 0)
+                {
+                    string codigo = gridArtigos.SelectedRows[0].Cells[0].Value.ToString();
+                    SuperDume.EliminaArtigoForm(codigo);
+                    LimpaArtigo();
+                    CriaTabelaArtigo();
+                }
+                else
+                {
+                    throw new Exception("Selecione o que deseja apagar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnArtigoCancelar_Click_1(object sender, EventArgs e)
+        {
+            LimpaArtigo();
+        }
         private void gridArtigos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (gridArtigos.SelectedRows.Count > 0)
@@ -220,18 +260,8 @@ namespace LojaUI
                 txtStock.Text = gridArtigos.SelectedRows[0].Cells[3].Value.ToString();
             }
         }
-        private void gridClientes_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (gridClientes.SelectedRows.Count > 0)
-            {
-                txtNome.Text = gridClientes.SelectedRows[0].Cells[0].Value.ToString();
-                txtCC.Text = gridClientes.SelectedRows[0].Cells[1].Value.ToString();
-                txtNIF.Text = gridClientes.SelectedRows[0].Cells[2].Value.ToString();
-                txtMorada.Text = gridClientes.SelectedRows[0].Cells[3].Value.ToString();
-                txtEmail.Text = gridClientes.SelectedRows[0].Cells[4].Value.ToString();
-                txtTele.Text = gridClientes.SelectedRows[0].Cells[5].Value.ToString();
-            }
-        }
+
+        //CLIENTES
         private void btnAcrescentarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -253,6 +283,7 @@ namespace LojaUI
                         Cliente cli = new Cliente(txtNome.Text, txtCC.Text, int.Parse(txtNIF.Text), txtMorada.Text, telemovel, txtEmail.Text);
                         SuperDume.Dicionario_Clientes.Add(cli.CC, cli);
                         CriaTabelaCliente();
+                        LimpaCliente();
                     }
                     else
                     {
@@ -267,26 +298,6 @@ namespace LojaUI
             catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void btnEliminarCliente_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (gridClientes.SelectedRows.Count > 0)
-                {
-                    string codigo = gridClientes.SelectedRows[0].Cells[1].Value.ToString();
-                    SuperDume.EliminaClienteForm(codigo);
-                    CriaTabelaCliente();
-                }
-                else
-                {
-                    MessageBox.Show("Selecione o que deseja apagar.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void txtAlteracoesCliente_Click(object sender, EventArgs e)
@@ -305,8 +316,12 @@ namespace LojaUI
                             SuperDume.Dicionario_Clientes[cc].Morada = txtMorada.Text;
                             SuperDume.Dicionario_Clientes[cc].Email = txtEmail.Text;
                             SuperDume.Dicionario_Clientes[cc].Telemovel = int.Parse(txtTele.Text);
+
+                            CriaTabelaCliente();
+                            CriarTabelaCompras();
+                            LimparCompra();
+                            LimpaCliente();
                         }
-                        CriaTabelaCliente();
                     }
                     else
                     {
@@ -324,7 +339,153 @@ namespace LojaUI
                 MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnEliminarCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridClientes.SelectedRows.Count > 0)
+                {
+                    string codigo = gridClientes.SelectedRows[0].Cells[1].Value.ToString();
+                    SuperDume.EliminaClienteForm(codigo);
+                    CriaTabelaCliente();
+                    LimpaCliente();
+                }
+                else
+                {
+                    MessageBox.Show("Selecione o que deseja apagar.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnClienteCancelar_Click(object sender, EventArgs e)
+        {
+            LimpaCliente();
+        }
+        private void gridClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (gridClientes.SelectedRows.Count > 0)
+            {
+                txtNome.Text = gridClientes.SelectedRows[0].Cells[0].Value.ToString();
+                txtCC.Text = gridClientes.SelectedRows[0].Cells[1].Value.ToString();
+                txtNIF.Text = gridClientes.SelectedRows[0].Cells[2].Value.ToString();
+                txtMorada.Text = gridClientes.SelectedRows[0].Cells[3].Value.ToString();
+                txtEmail.Text = gridClientes.SelectedRows[0].Cells[4].Value.ToString();
+                txtTele.Text = gridClientes.SelectedRows[0].Cells[5].Value.ToString();
+            }
+        }
 
+        //COMPRAS
+        private void btnAcrescCompra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SuperDume.Dicionario_Compras.ContainsKey(txtCodigoCompra.Text))
+                {
+                    if (!txtCodigoCompra.Text.Trim().Equals("") && comboClienteCompra.SelectedIndex > -1 && compraAux.Artigos_comprados.Count() > 0)
+                    {
+                        compraAux.Codigo_Compra = txtCodigoCompra.Text;
+                        compraAux.OCliente = (Cliente)comboClienteCompra.SelectedItem;
+                        compraAux.OCliente.Cartao.Lista_de_compras.Add(compraAux);
+                        compraAux.OCliente.CalculaPontos();
+
+                        foreach (Artigo art in SuperDume.Dicionario_Artigos.Values)
+                        {
+                            foreach (Artigo art2 in compraAux.Artigos_comprados)
+                            {
+                                if (art.Codigo_de_artigo.Equals(art2.Codigo_de_artigo) && art.Em_stock < art2.Quantidade)
+                                {
+                                    throw new Exception("Nao ha stock.");
+                                }
+                            }
+                        }
+                      
+                        SuperDume.Dicionario_Compras.Add(compraAux.Codigo_Compra, compraAux);
+                        SuperDume.ActualizaStock(compraAux);
+
+                        CriarTabelaCompras();
+                        CriaTabelaArtigo();
+                        LimparCompra();
+                    }
+                    else
+                    {
+                        throw new Exception("Preencha todos os campos.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("A identificacao introduzida é invalida.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnAceitarCompra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gridCompras.SelectedRows.Count > 0)
+                {
+                    if (!txtCodigoCompra.Text.Trim().Equals("") && comboClienteCompra.SelectedIndex > -1 && compraAux.Artigos_comprados.Count() > 0)
+                    {
+                        compraAux.OCliente = (Cliente)comboClienteCompra.SelectedItem;
+                        compraAux.Descricao = txtDecricaoCompra.Text;
+
+                        SuperDume.Dicionario_Compras[gridCompras.SelectedRows[0].Cells[0].Value.ToString()] = compraAux;
+                        SuperDume.ActualizaStock(compraAux);
+                        CriarTabelaCompras();
+                        CriaTabelaArtigo();
+                    }
+                    else
+                    {
+                        throw new Exception("Preencha todos os campos.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Selecione uma compra.");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+        }
+        private void btnEliminarCompra_Click(object sender, EventArgs e)
+        {
+            if (gridCompras.SelectedRows.Count > 0)
+            {
+                string stringAux = gridCompras.Rows[0].Cells[0].Value.ToString();
+                foreach (Compra com in SuperDume.Dicionario_Compras.Values)
+                {
+                    if (com.Codigo_Compra.Equals(stringAux))
+                    {
+                        com.OCliente.Cartao.Lista_de_compras.Remove(com);
+                        com.OCliente.CalculaPontos();
+                        SuperDume.DevolveStock(com);
+                        SuperDume.Dicionario_Compras.Remove(stringAux);
+
+                        CriarTabelaCompras();
+                        CriaTabelaArtigo();
+                        LimparCompra();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um artigo.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnCompraCancelar_Click(object sender, EventArgs e)
+        {
+            LimparCompra();
+        }
         private void gridCompras_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (gridCompras.SelectedRows.Count > 0)
@@ -336,6 +497,7 @@ namespace LojaUI
                         txtCodigoCompra.Text = com.Codigo_Compra;
                         txtDecricaoCompra.Text = com.Descricao;
                         txtCompraValor.Text = com.Valor.ToString();
+                        compraAux = com;
 
                         foreach (Cliente cli in SuperDume.Dicionario_Clientes.Values)
                         {
@@ -355,140 +517,72 @@ namespace LojaUI
             }
         }
 
-        private void btnAcrescCompra_Click(object sender, EventArgs e)
+
+        //ARTIGOS DA COMPRA
+        private void btnAcresArtigoCompra_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!SuperDume.Dicionario_Compras.ContainsKey(txtCodigoCompra.Text))
+                if (comboArtigos.SelectedIndex > -1)
                 {
-                    if (!txtCodigoCompra.Text.Trim().Equals("") && comboClienteCompra.SelectedIndex > -1 && compraAux.Artigos_comprados.Count() > 0)
+                    if (!txtQuantidadeCompra.Text.Trim().Equals(""))
                     {
-                        foreach(Artigo art in SuperDume.Dicionario_Artigos.Values)
-                        {
-                            foreach(Artigo art2 in compraAux.Artigos_comprados)
-                            {
-                                if(art.Codigo_de_artigo.Equals(art2.Codigo_de_artigo) && art.Em_stock >= art2.Quantidade)
-                                {
-                                    compraAux.Codigo_Compra = txtCodigoCompra.Text;
-                                    compraAux.OCliente = (Cliente)comboClienteCompra.SelectedItem;
+                        Artigo artAux = (Artigo)comboArtigos.SelectedItem;
+                        Artigo artAux2 = (Artigo)artAux.Clone();
 
-                                    SuperDume.Dicionario_Compras.Add(compraAux.Codigo_Compra, compraAux);
-                                    CriarTabelaCompras();
-                                    compraAux.OCliente.Cartao.Lista_de_compras.Add(compraAux);
-                                    compraAux.OCliente.CalculaPontos();
-                                    SuperDume.ActualizaStock(compraAux);
-                                    CriaTabelaArtigo();
-                                }
-                                else if(art.Em_stock < art2.Quantidade)
-                                {
-                                    throw new Exception("Nao ha stock.");
-                                }
-                            }
-                        }
-                        
-
+                        artAux2.Quantidade = int.Parse(txtQuantidadeCompra.Text);
+                        compraAux.Artigos_comprados.Add(artAux2);
+                        compraAux.CalculaValorCompra();
+                        txtCompraValor.Text = compraAux.Valor.ToString();
+                        CriarTabelaComprasArtigos(compraAux);
                     }
                     else
                     {
-                        MessageBox.Show("Preencha todos os campos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw new Exception("Introduza uma quantidade.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("A identificacao introduzida é invalida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new Exception("Escolha um artigo.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        private void btnNovaCompra_Click(object sender, EventArgs e)
-        {
-            compraAux = new Compra();
-            CriarTabelaComprasArtigos(compraAux);
-            txtCodigoCompra.Text = "";
-            txtDecricaoCompra.Text = "";
-            txtQuantidadeCompra.Text = "";
-            txtCompraValor.Text = "";
-        }
-        private void btnEliminarCompra_Click(object sender, EventArgs e)
-        {
-            if (gridCompras.SelectedRows.Count > 0)
-            {
-                string stringAux = gridCompras.Rows[0].Cells[0].Value.ToString();
-                foreach (Compra com in SuperDume.Dicionario_Compras.Values)
-                {
-                    if (com.Codigo_Compra == stringAux)
-                    {
-                        SuperDume.Dicionario_Compras.Remove(stringAux);
-                        break;
-                    }
-                }
-                CriarTabelaCompras();
-                compraAux.OCliente.Cartao.Lista_de_compras.Remove(compraAux);
-                compraAux.OCliente.CalculaPontos();
-            }
-            else
-            {
-                MessageBox.Show("Selecione um artigo.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void btnAceitarCompra_Click(object sender, EventArgs e)
-        {
-            if (gridCompras.SelectedRows.Count > 0)
-            {                
-                if (!txtCodigoCompra.Text.Trim().Equals("") && comboClienteCompra.SelectedIndex > -1 && compraAux.Artigos_comprados.Count() > 0)
-                {
-                    compraAux.Codigo_Compra = txtCodigoCompra.Text;
-                    compraAux.OCliente = (Cliente)comboClienteCompra.SelectedItem;
 
-                    SuperDume.Dicionario_Compras[gridCompras.SelectedRows[0].Cells[0].Value.ToString()] = compraAux;
-                    CriarTabelaCompras();
-                }
-            }
-        }
-        private void btnAcresArtigoCompra_Click(object sender, EventArgs e)
-        {
-            if (comboArtigos.SelectedIndex > -1 && !txtQuantidadeCompra.Text.Trim().Equals(""))
-            {
-                Artigo artAux = (Artigo)comboArtigos.SelectedItem;
-                Artigo artAux2 = (Artigo)artAux.Clone();
-
-                artAux2.Quantidade = int.Parse(txtQuantidadeCompra.Text);
-                compraAux.Artigos_comprados.Add(artAux2);
-                compraAux.CalculaValorCompra();
-                txtCompraValor.Text = compraAux.Valor.ToString();
-                CriarTabelaComprasArtigos(compraAux);
-            }
-            else
-            {
-                MessageBox.Show("Escolha um artigo.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
         private void btnEliminarArtigoCompra_Click(object sender, EventArgs e)
         {
-            if (gridComprasArtigos.SelectedRows.Count > 0)
+            try
             {
-                int intAux = (int)gridComprasArtigos.Rows[0].Cells[0].Value;
-                foreach (Artigo art in compraAux.Artigos_comprados)
+                if (gridComprasArtigos.SelectedRows.Count > 0)
                 {
-                    if (art.Codigo_de_artigo == intAux)
+                    int intAux = (int)gridComprasArtigos.Rows[0].Cells[0].Value;
+                    foreach (Artigo art in compraAux.Artigos_comprados)
                     {
-                        compraAux.Artigos_comprados.Remove(art);
-                        break;
+                        if (art.Codigo_de_artigo == intAux)
+                        {
+                            compraAux.Artigos_comprados.Remove(art);
+                            break;
+                        }
                     }
+                    compraAux.CalculaValorCompra();
+                    txtCompraValor.Text = compraAux.Valor.ToString();
+                    CriarTabelaComprasArtigos(compraAux);
                 }
-                compraAux.CalculaValorCompra();
-                txtCompraValor.Text = compraAux.Valor.ToString();
-                CriarTabelaComprasArtigos(compraAux);
+                else
+                {
+                    throw new Exception("Selecione um artigo.");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Selecione um artigo.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro: " + ex.Message, "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        //CARTAO CLIENTE
         private void btnCartaoCliente_Click(object sender, EventArgs e)
         {
             try
@@ -506,7 +600,7 @@ namespace LojaUI
 
                             Cartao c = new Cartao(cli);
                             c.ShowDialog();
-                            break;                           
+                            break;
                         }
                     }
                     catch (Exception ex)
@@ -521,8 +615,6 @@ namespace LojaUI
             {
                 MessageBox.Show("Nao Seleccionou nenhum cliente!", "Erro");
             }
-        }
-
+        }        
     }
-
 }

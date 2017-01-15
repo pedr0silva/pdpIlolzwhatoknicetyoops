@@ -33,16 +33,7 @@ namespace LojaUI
             this.Credencias = new Credencial();
         }
 
-        public void ActualizaStock(Compra comp)
-        {
-            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
-            {
-                if (Dicionario_Artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
-                {
-                    Dicionario_Artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
-                }
-            }
-        }
+        //FUNÇOES DA VERSAO CONSOLA:
         public void AdicionaArtigo(Artigo a)
         {
             if (Dicionario_Artigos.ContainsKey(a.Codigo_de_artigo))
@@ -104,6 +95,35 @@ namespace LojaUI
         }
 
         //Funcoes para forms 
+        public void ActualizaStock(Compra comp)
+        {
+            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
+            {
+                if (Dicionario_Artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
+                {
+                    if (!comp.Artigos_comprados[i].Contabilizado)
+                    {
+                        Dicionario_Artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock -= comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
+                        comp.Artigos_comprados[i].Contabilizado = true;
+                    }
+                }
+            }
+        }
+        public void DevolveStock(Compra comp)
+        {
+            for (int i = 0; i < comp.Artigos_comprados.Count(); i++)
+            {
+                if (Dicionario_Artigos.ContainsKey(comp.Artigos_comprados[i].Codigo_de_artigo))
+                {
+                    if (comp.Artigos_comprados[i].Contabilizado)
+                    {
+                        Dicionario_Artigos[comp.Artigos_comprados[i].Codigo_de_artigo].Em_stock += comp.Artigos_comprados[i].Quantidade;    //Nesta situaçao o i é igual ao codigo de artigo, nao? (nao e dicionario though)
+                        comp.Artigos_comprados[i].Contabilizado = false;
+                    }
+                }
+            }
+        }
+
         public void CriarCompraForm(Compra comp)
         {
             if (!Dicionario_Compras.ContainsKey(comp.Codigo_Compra))
@@ -130,7 +150,27 @@ namespace LojaUI
         {
             if (Dicionario_Artigos.ContainsKey(int.Parse(s)))
             {
-                Dicionario_Artigos.Remove(int.Parse(s));
+                Artigo artAux = Dicionario_Artigos[int.Parse(s)];
+                bool usado = false;
+
+                foreach(Compra comp in Dicionario_Compras.Values)
+                {
+                    foreach(Artigo art in comp.Artigos_comprados)
+                    {
+                        if(art.Codigo_de_artigo.Equals(artAux.Codigo_de_artigo))
+                        {
+                            usado = true;
+                        }
+                    }
+                }
+                if(!usado)
+                {
+                    Dicionario_Artigos.Remove(int.Parse(s));
+                }
+                else
+                {
+                    throw new Exception("O artigo nao pode ser eliminado pois está a ser usado.");
+                }
             }
             else
             {
@@ -141,7 +181,23 @@ namespace LojaUI
         {
             if (Dicionario_Clientes.ContainsKey(s))
             {
-                Dicionario_Clientes.Remove(s);
+                bool usado = false;
+
+                foreach (Compra comp in Dicionario_Compras.Values)
+                {
+                        if (comp.OCliente.CC.Equals(s))
+                        {
+                            usado = true;
+                        }
+                }
+                if(!usado)
+                {
+                    Dicionario_Clientes.Remove(s);
+                }
+                else
+                {
+                    throw new Exception("O clientes nao pode ser eliminado pois esta a ser usado.");
+                }
             }
             else
             {
@@ -158,6 +214,7 @@ namespace LojaUI
         public float Preco_unitario { get; set; }
         public int Em_stock { get; set; }
         public int Quantidade { get; set; }
+        public bool Contabilizado { get; set; }
 
         //usado para criar um artigo novo em stock
         public Artigo(int cod, string desc, float preco_unitario, int stck)
@@ -166,6 +223,7 @@ namespace LojaUI
             this.Descricao = desc;
             this.Preco_unitario = preco_unitario;
             this.Em_stock = stck;
+            this.Contabilizado = false;
         }
 
         //usado para criar uma lista de compras
@@ -174,10 +232,11 @@ namespace LojaUI
             this.Codigo_de_artigo = cod;
             this.Preco_unitario = preco_unitario;
             this.Quantidade = quantidade;
+            this.Contabilizado = false;
         }
         public Artigo()
         {
-
+            this.Contabilizado = false;
         }
 
         public object Clone()
@@ -187,7 +246,7 @@ namespace LojaUI
 
         public override string ToString()
         {
-            return Descricao + ", " + Preco_unitario + ".";
+            return Descricao + ". Preco: " + Preco_unitario + " Stock: " + Em_stock;
         }
     }
     [Serializable]
@@ -238,7 +297,7 @@ namespace LojaUI
 
         public override string ToString()
         {
-            return Nome;
+            return Nome + " " + CC;
         }
     }
     [Serializable]

@@ -40,6 +40,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::LojaUI.Properties.Resources.user;
             this.pictureBox1.Location = new System.Drawing.Point(59, 19);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(50, 10, 50, 50);
             this.pictureBox1.Name = "pictureBox1";
@@ -105,7 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 330);
+            this.ClientSize = new System.Drawing.Size(267, 317);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.checkRemMe);
             this.Controls.Add(this.txtPass);

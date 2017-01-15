@@ -21,6 +21,7 @@ namespace LojaUI
 
             Loja superDume = new Loja("Rua Direita", "Barcelos");
 
+            //Verifica se os dados existem.
             if(File.Exists("NuncaMeHackeareas.bin"))
             {
                 Stream s = File.Open("NuncaMeHackeareas.bin", FileMode.Open);
@@ -30,17 +31,17 @@ namespace LojaUI
             }
             else
             {
+                //Se nao existirem cria credenciais para poder fazer login.
                 superDume.Credencias.FazUmaX();
             }
 
+            //Corre o menu de login.
             Application.Run(new Login(superDume));
 
             if (superDume.Credencias.CorrectPassword)
             {
                 Application.Run(new Main(superDume));
             }
-
-
         }
     }
 }
